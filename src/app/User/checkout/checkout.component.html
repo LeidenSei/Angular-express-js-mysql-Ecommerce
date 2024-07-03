@@ -1,0 +1,108 @@
+<app-header></app-header>
+<div class="container">
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-6">
+        <h4>Billing details</h4>
+        <div class="mb-3">
+          <label for="fullname" class="form-label text-danger">Fullname*</label>
+          <input type="text" class="form-control" formControlName="fullname" id="fullname">
+          <div class="text-danger" *ngIf="checkoutForm.controls['fullname'].invalid && checkoutForm.controls['fullname'].touched">
+            <div *ngIf="checkoutForm.controls['fullname'].errors?.['required']">Fullname is required.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label text-danger">Address*</label>
+          <input type="text" class="form-control" formControlName="address" id="address">
+          <div class="text-danger" class="text-danger" *ngIf="checkoutForm.controls['address'].invalid && checkoutForm.controls['address'].touched">
+            <div *ngIf="checkoutForm.controls['address'].errors?.['required']">Address is required.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone_number" class="form-label text-danger">Phone*</label>
+          <input type="text" class="form-control" formControlName="phone_number" id="phone_number">
+          <div *ngIf="checkoutForm.controls['phone_number'].invalid && checkoutForm.controls['phone_number'].touched">
+            <div class="text-danger" *ngIf="checkoutForm.controls['phone_number'].errors?.['required']">Phone number is required.</div>
+            <div *ngIf="checkoutForm.controls['phone_number'].errors?.['pattern']">Invalid phone number.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label text-danger">Email address*</label>
+          <input type="email" class="form-control" formControlName="email" id="email">
+          <div class="text-danger" *ngIf="checkoutForm.controls['email'].invalid && checkoutForm.controls['email'].touched">
+            <div *ngIf="checkoutForm.controls['email'].errors?.['required']">Email address is required.</div>
+            <div *ngIf="checkoutForm.controls['email'].errors?.['email']">Invalid email address.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="note" class="form-label text-danger">Order notes (optional)</label>
+          <textarea class="form-control" formControlName="note" id="note" rows="3"></textarea>
+          <div *ngIf="checkoutForm.controls['note'].invalid && checkoutForm.controls['note'].touched">
+            <div *ngIf="checkoutForm.controls['note'].errors?.['required']" class="text-danger">Note is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card text-start">
+          <div class="card-body">
+            <h4 class="card-title">Your order</h4>
+            <div class="d-flex justify-content-between align-items-center border-bottom" *ngFor="let item of cartItem">
+              <div>
+                <h5>{{item.product.name}} x {{item.quantity}}</h5>
+              </div>
+              <div>
+                <h5>{{ item.product.price | number:'1.0-0' }} VND</h5>
+              </div>
+            </div>
+
+            <div class="payment-method">
+              <div class="mt-3">
+                <div class="d-flex justify-content-between align-items-center border-bottom">
+                  <div>
+                    <h5>Total Money</h5>
+                  </div>
+                  <div>
+                    <h5>{{ checkoutForm.get('total_money')?.value | number:'1.0-0' }} VND</h5>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <select class="form-select" formControlName="payment_method" aria-label="Default select example">
+                  <option value="" disabled selected>Choose method payment</option>
+                  <option value="Prepaid">Prepaid</option>
+                  <option value="Credit">Credit</option>
+                  <option value="Afterpay">Afterpay</option>
+                </select>
+                <div *ngIf="checkoutForm.controls['payment_method'].invalid && checkoutForm.controls['payment_method'].touched">
+                  <div class="text-danger" *ngIf="checkoutForm.controls['payment_method'].errors?.['required']">Payment method is required.</div>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <select class="form-select" formControlName="shipping_method" aria-label="Default select example">
+                  <option value="" disabled selected>Choose method shipping</option>
+                  <option value="Expedited">Expedited</option>
+                  <option value="Priority Mail">Priority Mail</option>
+                  <option value="Overnight">Overnight</option>
+                </select>
+                <div *ngIf="checkoutForm.controls['shipping_method'].invalid && checkoutForm.controls['shipping_method'].touched">
+                  <div class="text-danger" *ngIf="checkoutForm.controls['shipping_method'].errors?.['required']">Shipping method is required.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="button-order mt-3">
+              <button type="submit" class="btn btn-to-checkout">Checkout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

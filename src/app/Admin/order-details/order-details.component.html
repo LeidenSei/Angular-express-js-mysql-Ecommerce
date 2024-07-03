@@ -1,0 +1,137 @@
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-stretch">
+        <div class="col-lg-4 d-flex flex-column">
+            <div class="card flex-grow-1">
+                <div class="card-body">
+                    <h4 class="card-title">Order Id : {{order.id}}</h4>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Order date<i class="fa-solid fa-calendar-days"></i></label>
+                        <input type="text" disabled value="{{order.order_date}}" name="name" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Address<i class="fa-solid fa-calendar-days"></i></label>
+                        <input type="text" disabled value="{{order.address}}" name="name" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Payment method<i class="fa-solid fa-credit-card"></i></label>
+                        <input type="text" disabled name="name" value="{{order.payment_method}}" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Shipping method<i class="fa-solid fa-truck-fast"></i></label>
+                        <input type="text" disabled value="{{order.shipping_method}}"  class="form-control" id="name">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 d-flex justify-content-center flex-column">
+            <div class="card flex-grow-1">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">Customer</h4>
+                        </div>
+                        <div>
+                            <a [routerLink]="['/admin/user-detail/', order.user_id]" routerLinkActive="router-link-active" > <img src="{{order.avatar}}" style="width: 50px; height: 50px; border-radius: 50%;" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Fullname<i class="fa-regular fa-user"></i>: </label>
+                        <input type="text" disabled name="name" value="{{order.fullname}}" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Mobile Phone<i class="fa-solid fa-phone"></i>:</label>
+                        <input type="text" disabled name="name" value="{{order.phone_number}}" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Email<i class="fa-solid fa-at"></i>:</label>
+                        <input type="text" disabled name="name" value="{{order.email}}" class="form-control" id="name">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 d-flex flex-column">
+            <div class="card flex-grow-1">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label label-icon">Note<i class="fa-regular fa-note-sticky"></i>: </label>
+                        <div data-mdb-input-init class="form-outline">
+                            <textarea class="form-control" id="textAreaExample1" disabled rows="4">{{order.note}}</textarea>
+                        </div>
+                    </div>
+                    <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+                        <div class="mb-3">
+                            <label for="" class="form-label label-icon">Shipping date<i class="fa-regular fa-calendar-days"></i>: </label>
+                            <ng-container *ngIf="editOrder.status == 'cancelled'; else elseTemplate0">
+                                <input type="date"  [min]="today" disabled [(ngModel)]="editOrder.shipping_date" name="shipping_date" class="form-control">
+                            </ng-container>
+                            <ng-template #elseTemplate0>
+                                <input type="date"  [min]="today" [(ngModel)]="editOrder.shipping_date" name="shipping_date" class="form-control">
+                            </ng-template>
+                            
+                            
+                        </div>
+                        <label for="" class="form-label label-icon">Status<i class="fa-regular fa-user"></i>: </label>
+                        <ng-container *ngIf="editOrder.status == 'cancelled'; else elseTemplate">
+                            <div class="mb-3">
+                                <input type="text"  disabled [(ngModel)]="editOrder.status" name="status" class="form-control text-danger">
+                            </div>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <select class="form-select" [(ngModel)]="editOrder.status" name="status" aria-label="Default select example">
+                                <option value="pending">pending</option>
+                                <option value="shipped">shipped</option>
+                                <option value="processing">processing</option>
+                                <option value="delivered">delivered</option>
+                            </select>
+                        </ng-template>
+                        
+
+                        <div class="d-flex justify-content-center mt-4" *ngIf="editOrder.status != 'cancelled'">
+                            <button type="submit" class="btn btn-primary btn-rounded" data-mdb-ripple-init data-mdb-ripple-color="dark">Edit</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 ">
+        <div class="h1">Order detail</div>
+        <div
+            class="table-responsive"
+        >
+            <table
+                class="table table-primary"
+            >
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total money</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="" *ngFor="let item of listItemOrderDetail">
+                        <td>
+                            <div class="d-flex align-items-center">
+                              <img
+                                  src="{{item.product_image}}"
+                                  alt=""
+                                  style="width: 45px; height: 45px"
+                                  class="rounded-circle"
+                                  />
+                              <div class="ms-3">
+                                <p class="fw-bold mb-1">{{item.product_name}}</p>
+                                <p class="text-muted mb-0">{{ item?.price | number:'1.0-0' }} VND</p>
+                              </div>
+                            </div>
+                          </td>
+                        <td>{{item.number_of_product}}</td>
+                        <td>{{ item?.total_money | number:'1.0-0' }} VND</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>

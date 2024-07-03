@@ -1,0 +1,30 @@
+.label-icon{
+    color:#FFA07A;
+}
+.card-body{
+    background-color: #20B2AA;
+}
+.card-title{
+    color:#FFA07A;
+}
+.h1{
+    color:#FFA07A;
+}
+input[type="text"],
+select.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #b6afaf;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+input[type="text"]:focus,
+select.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.bg-table{
+  background-color: #20B2AA;
+}

@@ -1,0 +1,277 @@
+
+<app-header/>
+<div class="container mt-5">
+    <ng-container *ngIf="activeAlert == true; else elseTemplate">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="d-flex justify-content-between align-items-center"> 
+            <div>
+                <strong>{{quantity}}</strong> × “{{product.name}}” have been added to your cart..
+            </div>
+            <div>
+                <a class="btn btn-success" [routerLink]="['/order']" routerLinkActive="router-link-active" >View Cart</a>
+            </div>
+            </div>
+            <button type="button" (click)="setStatusActive()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        
+    </ng-template>
+    
+
+    <div class="row" *ngIf="product">
+        <div class="col-lg-6">
+            <img style="width: 600px;" [src]="product.image" alt="">
+        </div>
+        <div class="col-lg-6 ">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Library</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Data</li>
+                </ol>
+              </nav>
+              <p class="name-category">{{product.category}}</p>
+              <p>{{product?.name}}</p>
+              
+              <p>{{ product?.price | number:'1.0-0' }} VND</p>
+              <p>{{product?.product_quantity}}</p>
+               <div >
+                 <div class="edit-short-detail" [innerHTML]="product?.short_detail"></div>
+               </div>
+
+              <div class="d-flex align-items-center  ">
+                <div class="product-quantity">  
+                    <div class="border-wrapper">
+                        <button (click)="decreaseQuantity()">-</button>
+                        <input type="text" [value]="quantity" (input)="updateQuantity($event)">
+                        <button (click)="increaseQuantity()">+</button>
+                    </div>
+                </div>
+                
+                <div class="button-add-cart p-3 pb-1 ">
+                    <button class="btn btn-add-cart" (click)="addToCart()">Add to cart</button>
+                </div>
+              </div>
+              <div class="border-bottom"></div>
+              <p>Category: <a class="name-category">{{product?.category}}</a></p>
+        </div>
+    </div>
+    <div class="other-tabs mt-3">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">   
+              <a class="nav-link active text-color" id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0" role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">Description</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link text-color" id="simple-tab-1" data-bs-toggle="tab" href="#simple-tabpanel-1" role="tab" aria-controls="simple-tabpanel-1" aria-selected="false">Review(0)</a>
+            </li>
+          </ul>
+          <div class="tab-content pt-3" id="tab-content">
+<!-- Trong template của component Angular -->
+    <div class="tab-pane active text-color" id="simple-tabpanel-0" role="tabpanel" aria-labelledby="simple-tab-0">
+        <div [innerHTML]="product?.description"></div>
+    </div>
+
+            
+            <div class="tab-pane text-color" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">
+                <p>There are no reviews yet.</p>
+                <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+                    <div class="board-review text-color">
+                      <h5 class="text-color">Add a review “{{product?.name}}”</h5>
+                      <p>Your email address will not be published. Required fields are marked *</p>
+                      <div class="mb-3">
+                        Your rating *
+                        <ngb-rating [max]="5" (rateChange)="getRating($event)" [formControl]="ratingControl"></ngb-rating>
+                      </div>
+                      <textarea [(ngModel)]="ratingForm.comment_product" name="comment_product" id="" style="width: 100%; height: 120px;"></textarea>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="mb-3">
+                            <label for="fullname" class="form-label text-color">Name*</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="fullname"
+                              name="fullname"
+                              [(ngModel)]="ratingForm.fullname"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="mb-3">
+                            <label for="email" class="form-label text-color">Email*</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="email"
+                              name="email"
+                              [(ngModel)]="ratingForm.email"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-add-cart mt-4" style="width: 100px;">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                  <div class="container" *ngIf="ratings!=null">
+                    <div id="reviews" class="review-section">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h4 class="m-0">{{ratings.length}} Reviews</h4>
+        
+                            <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: 188px;">
+                                <span class="selection">
+                                    <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-qd66-container">
+                                        <span class="select2-selection__rendered" id="select2-qd66-container" role="textbox" aria-readonly="true" title="Most Relevant">Most Recent</span>
+                                        <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                    </span>
+                                </span>
+                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="stars-counters">
+                                    <tbody>
+                                        <tr class="">
+                                            <td>
+                                                <span>
+                                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5 Stars</button>
+                                                </span>
+                                            </td>
+                                            <td class="progress-bar-container">
+                                                <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
+                                                    <div class="fit-progressbar-background">
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.fiveStar) }"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="star-num">({{ratingCounts.fiveStar}})</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>
+                                                <span>
+                                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">4 Stars</button>
+                                                </span>
+                                            </td>
+                                            <td class="progress-bar-container">
+                                                <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
+                                                    <div class="fit-progressbar-background">
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.fourStar) }"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="star-num">({{ratingCounts.fourStar}})</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>
+                                                <span>
+                                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">3 Stars</button>
+                                                </span>
+                                            </td>
+                                            <td class="progress-bar-container">
+                                                <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
+                                                    <div class="fit-progressbar-background">
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.threeStar) }"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="star-num">({{ratingCounts.threeStar}})</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>
+                                                <span>
+                                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">2 Stars</button>
+                                                </span>
+                                            </td>
+                                            <td class="progress-bar-container">
+                                                <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
+                                                    <div class="fit-progressbar-background">
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.twoStar) }"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="star-num">({{ratingCounts.twoStar}})</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>
+                                                <span>
+                                                    <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">1 Stars</button>
+                                                </span>
+                                            </td>
+                                            <td class="progress-bar-container">
+                                                <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
+                                                    <div class="fit-progressbar-background">
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.oneStar) }"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="star-num">({{ratingCounts.oneStar}})</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="review-list">
+                        <ul *ngFor="let item of ratings | paginate: { itemsPerPage: 5, currentPage: p }">
+                            <li>
+                                <div class="d-flex">
+                                    <div class="left">
+                                        <span>
+                                            <ng-container *ngIf="item.avatar != ''; else elseTemplate">
+                                                <img src="{{item.avatar}}" class="" style="width: 40px;" alt="" />
+                                            </ng-container>
+                                            <ng-template #elseTemplate>
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" style="width: 40px;" class=" " alt="" />
+                                            </ng-template>
+                                        </span>
+                                    </div>
+                                    <div class="right">
+                                        <h4>
+                                            {{item.fullname}}
+                                            <span class="gig-rating text-body-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
+                                                    <path
+                                                        fill="currentColor"
+                                                        d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"
+                                                    ></path>
+                                                </svg>
+                                                {{item.rating_star}}
+                                            </span>
+                                        </h4>
+                                        <div class="review-description">
+                                            <p>
+                                                {{item.comment_product}}
+                                            </p>
+                                        </div>
+                                        <span class="publish py-3 d-inline-block w-100">{{item.created_date}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+
+    <div class="relative-product mt-5">
+        <h3>Related Product</h3>
+        <div class="row justify-content-around align-items-center">
+        <div class="col-lg-3" *ngFor="let item of relatedProduct">
+            <div class="card text-left">
+                <a [routerLink]="['/product-detail', item.slug]" ><img class="card-img-top" src="{{item.image}}" alt=""></a>
+                <div class="card-body">
+                  <h4 class="card-title">{{item.name}}</h4>
+                  <p class="card-text">{{ item.price | number:'1.0-0' }} VND</p>
+                </div>
+              </div>
+        </div>
+    </div>
+    </div>
+</div>
+

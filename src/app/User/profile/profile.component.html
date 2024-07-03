@@ -1,0 +1,129 @@
+<app-header />
+<section style="background-color: white;">
+  <div class="container py-5">
+    
+    <div class="row justify-content-between">
+      <div class="col-lg-12">
+        <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="" class="a-edit">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-lg-6">
+        <button class="btn btn-danger" (click)="logOut()">Log out</button>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <ng-container *ngIf="userProfile.avatar!=null; else elseTemplate">
+              <img [src]="imageUrl"  alt="avatar" class=" img-fluid" style="width: 150px;">
+            </ng-container>
+            <ng-template #elseTemplate>
+              <img [src]="imageUrl" alt="avatar"
+                class=" img-fluid" style="width: 150px;">
+            </ng-template>
+            <h5 class="my-3">{{userProfile.fullname}}</h5>
+            <p class="text-muted mb-1">{{userProfile.email}}</p>
+            <p class="text-muted mb-4">{{userProfile.address}}</p>
+            <div class="d-flex justify-content-center mb-2">
+              <div class="file-input">
+                <input type="file" id="file" (change)="handleFileInput($event)" class="file">
+                <label for="file">Select file</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="fullname" />
+                  <div *ngIf="profileForm.get('fullname')?.invalid && profileForm.get('fullname')?.touched">
+                    <small class="text-danger" *ngIf="profileForm.get('fullname')?.errors?.['required']">
+                      Full Name is required.
+                    </small>
+                    <small class="text-danger" *ngIf="profileForm.get('fullname')?.errors?.['minlength']">
+                      Full Name must be at least 5 characters long.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Birthday</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" formControlName="date_of_birth" />
+                  <div *ngIf="profileForm.get('date_of_birth')?.invalid && profileForm.get('date_of_birth')?.touched">
+                    <small class="text-danger" *ngIf="profileForm.get('date_of_birth')?.errors?.['required']">
+                      Birthday is required.
+                    </small>
+                    <small class="text-danger" *ngIf="profileForm.get('date_of_birth')?.errors?.['invalidAge']">
+                      Ngày sinh phải lớn hơn 14 tuổi.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="phone_number" />
+                  <div *ngIf="profileForm.get('phone_number')?.invalid && profileForm.get('phone_number')?.touched">
+                    <small class="text-danger" *ngIf="profileForm.get('phone_number')?.errors?.['required']">
+                      Phone Number is required.
+                    </small>
+                    <small class="text-danger" *ngIf="profileForm.get('phone_number')?.errors?.['pattern']">
+                      Invalid phone number format.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="address" />
+                  <div *ngIf="profileForm.get('address')?.invalid && profileForm.get('address')?.touched">
+                    <small class="text-danger" *ngIf="profileForm.get('address')?.errors?.['required']">
+                      Address is required.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-center align-items-center">
+                <div>
+                  <button type="submit" class="mb-0 btn btn-success"[disabled]="profileForm.invalid">Edit user</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>

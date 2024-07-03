@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-3">
+      <div class="mb-3">
+        <select
+          class="form-select form-select-lg"
+          (change)="onStatusChange($event)"
+          name="status"
+          id="status"
+        >
+          <option selected value="status">Status</option>
+          <option value="pending">pending</option>
+          <option value="processing">processing</option>
+          <option value="shipped">shipped</option>
+          <option value="delivered">delivered</option>
+          <option value="cancelled">cancelled</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>Order Id</th>
+      <th>Customer</th>
+      <th>Payment method</th>
+      <th>Created at</th>
+      <th>Status</th>
+      <th>Total money</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let item of listOrder | paginate : { itemsPerPage: 10, currentPage: p };
+        let i = index
+      "
+    >
+      <td>{{ item.id }}</td>
+      <td>
+        <div class="d-flex align-items-center">
+          <div class="">
+            <p class="fw-bold mb-1">{{ item.fullname }}</p>
+            <p class="text-muted mb-0">{{ item.email }}</p>
+            <p class="text-muted mb-0">{{ item.phone_number }}</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        <p class="fw-normal mb-1">{{ item.payment_method }}</p>
+      </td>
+      <td>
+        <p class="fw-normal mb-1">{{ item.order_date }}</p>
+      </td>
+      <td>
+        <ng-container *ngIf="item.status != 'cancelled'; else elseTemplate">
+          <span class="badge badge-success rounded-pill d-inline">{{
+            item.status
+          }}</span>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <span class="badge badge-danger rounded-pill d-inline">{{
+            item.status
+          }}</span>
+        </ng-template>
+      </td>
+      <td>{{ item?.total_money | number : "1.0-0" }} VND</td>
+      <td>
+        <a
+          [routerLink]="['/admin/order-detail', item.id]"
+          routerLinkActive="router-link-active"
+          class="btn btn-info"
+        >
+          Detail
+        </a>
+        <button class="btn btn-danger" (click)="deleteOrder(item.id)" *ngIf="item.status == 'cancelled'">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</table>

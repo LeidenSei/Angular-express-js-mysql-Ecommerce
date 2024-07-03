@@ -1,0 +1,67 @@
+.background-container {
+    background-image: url('https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/10/Call-to-action.jpg'); /* Đường dẫn đến ảnh nền */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.centered-element {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.card{
+    border: none;
+}
+
+.image-container img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.customer-said{
+    font-size: small;
+    font-weight: bold;
+}
+.card-title i{
+    color: #2c541d;
+}
+
+.icon-container .fa-quote-left {
+    font-size: 48px; /* Điều chỉnh độ lớn của biểu tượng */
+    color: #333;     /* Màu sắc của biểu tượng */
+}
+.title-end{
+    font-size: 37px;
+    font-weight: bold;
+    letter-spacing: 4.92px;
+}
+.sub-title{
+    color: gray;
+}
+.button-text{
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    background-color: #2c541d;
+    font-size: 20px;
+    padding: 6px;
+}
+.icon-list{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2c541d;
+    padding: 20px;
+}
+.fa-solid{
+    color: white;
+}
+.border-list-icon{
+    border-left: 1px solid rgb(185, 178, 178);
+}

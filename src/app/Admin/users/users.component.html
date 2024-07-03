@@ -1,0 +1,94 @@
+<div class="container m-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="input-group ">
+        <input type="text" #filterValue  class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" (click)="filterBy(filterValue)" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Position</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listUsers | paginate: { itemsPerPage: 10, currentPage: p }, let i = index">
+        <td>
+          {{i+1}}
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+
+                <ng-container *ngIf="item.avatar != null; else elseTemplate2">
+                    <img
+                    src="{{item.avatar}}"
+                    alt=""
+                    style="width: 45px; height: 45px"
+                    class="rounded-circle"
+                    />
+                </ng-container>
+                <ng-template #elseTemplate2>
+                    <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                    alt=""
+                    style="width: 45px; height: 45px"
+                    class="rounded-circle"
+                    />
+                </ng-template>
+                
+
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{item.fullname}}</p>
+              <p class="text-muted mb-0">{{item.email}}</p>
+              <p class="text-muted mb-0">{{item.phone_number}}</p>
+            </div>
+          </div>
+        </td>
+        <td>
+            <ng-container *ngIf="item.is_active == 1; else elseTemplate">
+                <span class="badge badge-success rounded-pill d-inline">Active</span>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <span class="badge badge-danger rounded-pill d-inline">Disabled</span>
+            </ng-template>
+            
+          
+        </td>
+        <td>
+          <div class="mb-3">
+            <select
+              class="form-select-lg"
+              name=""
+              id=""
+              (change)="onRoleChange($event, item.id)"
+            >
+            <option *ngFor="let role of roles" [value]="role.id" [selected]="item.role_id == role.id">
+              {{ role.name }}
+            </option>
+            </select>
+          </div>
+          
+        </td>
+        <td>
+          <div class="btn-group" role="group" aria-label="User Actions">
+            <a [routerLink]="['/admin/user-detail/', item.id]" routerLinkActive="router-link-active" class="btn btn-info">
+              Detail
+            </a>
+            <button class="btn btn-warning" (click)="changeStatusUser(item.id)">Change Status</button>
+            <button class="btn btn-danger" (click)="deleteUser(item.id)" *ngIf="item.is_active == '0'">Delete</button>
+          </div>          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mt-5">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>

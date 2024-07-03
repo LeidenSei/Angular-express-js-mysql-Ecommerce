@@ -1,0 +1,116 @@
+<app-navi-bar/>
+<div class="container mt-5">
+    <h3>Recent Product</h3>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-3" *ngFor="let item of listItem">
+            <div class="card">
+                <a (click)="detailProduct(item.slug)"><img class="card-img-top" src="{{item.image}}" alt="Title" /></a>
+                <div class="card-body">
+                    <h4 class="">{{item.name}}</h4>
+                    <p>{{item.category}}</p>
+                    <p>{{ item.price | number:'1.0-0' }} VND</p>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<div class="container mt-4 mb-4">
+    <h1>
+        What Our Customers Say
+    </h1>
+    <div class="row ">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class=""><i class="fa-solid fa-quote-left"></i></h4>
+                    <p class="card-text">Fast shipping and excellent customer service. The product was even better than expected. I will definitely be a returning customer.</p>
+                    <div class="image-container">
+                        <img src="https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/11/earth-store-testimonial-avatar-img.jpeg" alt="">
+                    </div>
+                    <p class="customer-said mt-2">JENNIFER LEWIS</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fa-solid fa-quote-left"></i></h4>
+                    <p class="card-text">
+                        Great user experience on your website. I found exactly what I was looking for at a great price. I will definitely be telling my friends.
+                    </p>
+                    <div class="image-container">
+                        <img src="https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/11/earth-store-testimonials-avatar-img-2.jpeg" alt="">
+                    </div>
+                    <p class="customer-said mt-2">ALICIA HEART</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fa-solid fa-quote-left"></i></h4>
+                    <p class="card-text">
+                        Thank you for the excellent shopping experience. It arrived quickly and was exactly as described. I will definitely be shopping with you again in the future.
+                    </p>
+                    <div class="image-container">
+                        <img src="https://websitedemos.net/earth-store-02/wp-content/uploads/sites/1171/2022/11/earth-store-testimonials-avatar-img-1.jpeg" alt="">
+                    </div>
+                    <p class="customer-said mt-2">JUAN CARLOS</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="background-container mt-5">
+    <div class="centered-element">
+        <div class="title-end">
+            Give the Gift of a Postcard
+        </div>
+        <div class="sub-title">
+            Give the gift of a lasting memory with a postcard
+        </div>
+        <div class="button-end mt-5">
+            <button class="button-text">Purchase a name-cards</button>
+        </div>
+    </div>
+</div>
+<div class="container mt-5 p-2">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-3">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="icon-list mr-2 d-flex justify-content-center align-items-center">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <div>
+                    <div> SECURE PAYMENT</div>
+                    <div> All our payments our SSL secured</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 border-list-icon">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="icon-list mr-2 d-flex justify-content-center align-items-center">
+                    <i class="fa-solid fa-truck"></i>
+                </div>
+                <div>
+                    <div> SECURE PAYMENT</div>
+                    <div> All our payments our SSL secured</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 border-list-icon">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="icon-list mr-2 d-flex justify-content-center align-items-center">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <div>
+                    <div> SECURE PAYMENT</div>
+                    <div> All our payments our SSL secured</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

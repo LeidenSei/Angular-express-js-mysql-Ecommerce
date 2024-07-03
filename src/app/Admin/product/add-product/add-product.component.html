@@ -1,0 +1,80 @@
+<div class="container">
+    <form [formGroup]="formProduct" (ngSubmit)="addProduct()">
+        <div class="row mb-4 justify-content-center ">
+          <div class="col-lg-6">
+            <div class="col-lg-12">
+              <div data-mdb-input-init class="form-outline">
+                <label class="form-label" for="form6Example1">Product Name</label>
+                <input type="text" id="title"  formControlName="name" (keyup)="ChangeToSlug();" class="form-control" />
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div data-mdb-input-init class="form-outline">
+                <label class="form-label" for="form6Example1">Slug</label>
+                <input type="text" id="slug" disabled class="form-control" />
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div data-mdb-input-init class="form-outline">
+                <label class="form-label" for="form6Example1">Price</label>
+                <input type="text" id="form6Example1"  formControlName="price" class="form-control" />
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <label class="form-label" for="form6Example1">Select category</label>
+              <select class="form-select"  formControlName="category_id" aria-label="Default select example">
+                <option *ngFor="let item of listCate" [value]="item.id">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="col-lg-12">
+              <div data-mdb-input-init class="form-outline">
+                <label class="form-label" for="form6Example1">Quantity</label>
+                <input type="text" id="form6Example1"  formControlName="product_quantity" class="form-control" />
+              </div>
+            </div>
+            <div class="col-lg-12">
+                <div data-mdb-input-init class="form-outline">
+                  <label class="form-label" for="short_detail">Chi tiết ngắn</label>
+                  <ckeditor formControlName="short_detail" [editor]="Editor" data="<p>Hello World</p>" (ready)="onReady($event)"></ckeditor>
+                </div>
+            </div>
+            <div class="col-lg-12">
+              <div data-mdb-input-init class="form-outline">
+                <label class="form-label" for="description">Mô tả</label>
+                <ckeditor formControlName="description" [editor]="Editor" data="<p>Hello World</p>" (ready)="onReady($event)"></ckeditor>
+              </div>
+            </div>
+            <div class="form-check d-flex mb-4">
+              <label class="form-check-label" for="form6Example8"> Status </label>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                formControlName="status"
+              />
+            </div>
+          </div>
+         
+          <div class="col-lg-5">
+            <div class="col-lg-12">
+              <div class="mb-4">
+                <div data-mdb-input-init class="form-outline">
+                  <label class="form-label" for="form6Example1">Image</label>
+                  <input #Image type="file" class="form-control" enctype="multipart/form-data"  (change)="handleFileInput($event)"/>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div data-mdb-input-init class="form-outline">
+                  <label class="form-label" for="form6Example1">Preview image</label>
+                  <img  *ngIf="imageUrl" [src]="imageUrl" class="image">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Add product</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+</div>

@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row justify-content-center  align-items-center">
+      <div class="col-lg-6">
+        <h3>Add Category</h3>
+        <form [formGroup]="profileForm" (ngSubmit)="addCate()">
+          <div class="form-group">
+            <label class="d-flex justify-content-lg-center align-items-lg-center text-info h3">Name of the category</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="name" formControlName="name" placeholder="Insert the name of the category">
+            <div *ngIf="submitted && profileForm.get('name')?.invalid" class="text-danger">Name is required</div>
+
+          </div>
+          
+          <div class="btn_admin"><button type="submit" class="btn btn-success">Submit</button></div>
+        </form>
+        
+      </div>
+        <div class="col-lg-6">
+          <h3>List category</h3>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Category name</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listCate, let i = index">
+                    <th scope="row">{{ i+1 }}</th>
+                    <td>{{ item.name }}</td>
+                    <td>
+                      <a class="btn btn-info" (click)="edit( item.id )">Edit</a>
+                      <a class="btn btn-danger" (click)="deleteCate( item.id )">Delete</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+          </div>
+          <div class="modal-body">
+              <form [formGroup]="profileForm" (submit)="upDate()">
+                  <div class="form-group">
+                    <label class="d-flex justify-content-lg-center align-items-lg-center text-info h3">Name of the category</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="name" value="{{ cate.name }}">
+                  </div>
+                  <div class="btn_admin"><button type="submit" class="btn btn-success btn-block">Submit</button></div>
+                </form>
+          </div>
+      </div>
+  </div>
+</div>

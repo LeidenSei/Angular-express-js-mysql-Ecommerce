@@ -1,0 +1,73 @@
+<div class="container mt-5">
+    <div class="row align-items-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+        <!-- Bg -->
+        <div class="card rounded-bottom smooth-shadow-sm">
+          <div class="d-flex align-items-center justify-content-around pt-4 pb-6 px-4">
+            <!-- avatar -->
+            <div class="d-flex align-items-center">
+              <div class="avatar-xxl me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
+                <ng-container *ngIf="user.avatar != null; else elseTemplate">
+                  <img src="{{ user.avatar }}" class="avatar-xxl rounded-circle border border-2" alt="Image">
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" class="avatar-xxl rounded-circle border border-2" alt="Image">
+                </ng-template>
+              </div>
+              <!-- content -->
+              <div class="lh-1">
+                <h2 class="mb-0">{{user.fullname}}
+                  <a href="#!" class="text-decoration-none"></a>
+                </h2>
+                <p class="mb-0 d-block">{{user.email}}</p>
+              </div>
+            </div>
+            <div>
+                <p>Join in: {{user.created_at}}</p>
+                <p>Address: {{user.address}}</p>
+                <p>Phone number: {{user.phone_number}}</p>
+            </div>
+          </div>
+          <!-- nav -->
+          <ul class="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
+            <li class="nav-item">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- page content -->
+    <div class="py-6 mt-3">
+        <h2>List order</h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Order id</th>
+                <th scope="col">Total</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Shipping Date</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listorders, let i = index">
+                <th scope="row">{{ i+1 }}</th>
+                <td>{{ item.id }}</td>
+                <td>{{ item.total_money }}</td>
+                <td>{{ item.order_date }}</td>
+                <td>{{ item.shipping_date }}</td>
+                <td>
+                    <ng-container *ngIf="item.status != 'cancelled'; else elseTemplate">
+                        <span class="badge badge-success rounded-pill d-inline">{{ item.status }}</span>
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        <span class="badge badge-danger rounded-pill d-inline">{{ item.status }}</span>
+                      </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+  

@@ -20,7 +20,7 @@ export class ListOrderComponent implements OnInit{
       this.user = data;
       this.orderService.getOrderByUserId(this.user.id).subscribe((data) => {
         this.listOrder = data;
-        this.filterOrders(this.listOrder)
+       
       })
     })
 
@@ -37,8 +37,30 @@ export class ListOrderComponent implements OnInit{
       }
     );
 }
+setStatusPending(id: any) {
+    let status = "pending";
+    this.orderService.editOrderStatus(id, { status }).subscribe(
+      response => {
+        console.log('Order updated successfully', response);
+        this.getValueUser();
+      },
+      error => {
+        console.error('Error updating order', error);
+      }
+    );
+}
 filterOrders(listOrder:any) {
   this.listOrder = this.listOrder.filter((order: { status: string; }) => order.status !== 'cancelled');
 }
-
+deleteOrder(id: any) {
+  this.orderService.deleteOrder(id).subscribe(
+      response => {
+          this.getValueUser();
+          this.commonService.showAlerAside("Delete order successfully", "success")
+      },
+      error => {
+          console.error('Error deleting order:', error);
+      }
+  );
+} 
 }

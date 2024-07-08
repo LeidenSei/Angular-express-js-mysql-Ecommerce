@@ -13,6 +13,7 @@ import { SuccessCheckoutComponent } from '../success-checkout/success-checkout.c
 import { ListOrderComponent } from '../list-order/list-order.component';
 import { OrderDetailComponent } from '../order-detail/order-detail.component';
 import { AuthGuard } from 'src/app/auth.guard';
+import { ContactComponent } from '../contact/contact.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
     {path: 'shop/:category-name', component: ShopComponent},
     {path: 'shop/:product-name', component: ShopComponent},
     {path:'order', component:OrderComponent},
+    {path:'contact', component:ContactComponent},
     {path:'checkout', component:CheckoutComponent, canActivate:[AuthGuard]},
     { 
       path: 'profile', 

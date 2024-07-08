@@ -1,0 +1,115 @@
+<app-contact-nav/>
+<div class="container mt-5" >
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="row justify-content-between">
+        <div class="col-lg-6">
+          <div class="mb-5">
+            <h2>Get In Touch</h2>
+          </div>
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4 class-input-contact">
+
+              <input type="text" class="form-control" formControlName="fullname" placeholder="Full name" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+                <div class="text-danger" *ngIf="contactForm.controls['fullname'].invalid && contactForm.controls['fullname'].touched">
+                  <div *ngIf="contactForm.controls['fullname'].errors?.['required']">Fullname is required.</div>
+                </div>
+            </div>
+            <div class="mb-4 class-input-contact">
+
+              <input type="number" placeholder="Phone number" formControlName="phone_number" class="form-control" id="exampleInputPassword1">
+              <div *ngIf="contactForm.controls['phone_number'].invalid && contactForm.controls['phone_number'].touched">
+                <div class="text-danger" *ngIf="contactForm.controls['phone_number'].errors?.['required']">Phone number is required.</div>
+                <div *ngIf="contactForm.controls['phone_number'].errors?.['pattern']">Invalid phone number.</div>
+              </div>
+            </div>
+            <div class="mb-4 class-input-contact">
+
+              <input type="email" placeholder="Email" formControlName="email" class="form-control" id="exampleInputPassword1">
+              <div class="text-danger" *ngIf="contactForm.controls['email'].invalid && contactForm.controls['email'].touched">
+                <div *ngIf="contactForm.controls['email'].errors?.['required']">Email address is required.</div>
+                <div *ngIf="contactForm.controls['email'].errors?.['email']">Invalid email address.</div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+
+              <textarea class="form-control" placeholder="Message" formControlName="message" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <div *ngIf="contactForm.controls['message'].invalid && contactForm.controls['message'].touched">
+                <div *ngIf="contactForm.controls['message'].errors?.['required']" class="text-danger">Message is required.</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-submit">Send now</button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <div class="mb-5">
+            <h2>Talk To Us</h2>
+          </div>
+          <div class="row justify-content-center">
+            <div class="row justify-content-center mb-5">
+              <div class="col-lg-2">
+                <div class="icon-contact">
+                  <i class="fa-regular fa-lg fa-envelope"></i>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <p class="label-contact">EMAIL</p>
+                <p class="item-contact">something@tyler.com</p>
+              </div>
+            </div>
+            <div class="mb-5 row justify-content-center">
+              <div class="col-lg-2">
+                <div class="icon-contact">
+                  <i class="fa-solid fa-lg fa-phone-volume"></i>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <p class="label-contact">PHONE NUMBER</p>
+                <p class="item-contact">202-555-0188</p>
+              </div>
+            </div>
+            <div class="mb-5 justify-content-center  row">
+              <div class="col-lg-2">
+                <div class="icon-contact">
+                  <i class="fa-solid fa-lg fa-location-dot"></i>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <p class="item-contact">2727 Ocean Road,
+                  Malibu, CA, 90264</p>
+              </div>
+            </div>
+            <div class="mb-5 row justify-content-center  ">
+
+              <div class="col-lg-7">
+                <div class="d-flex justify-content-start align-item-center">
+                  <div class="text-center follow-contact ">Follow Us:</div>
+                </div>
+                  
+                  <div class="d-flex justify-content-start align-item-center">
+                    <div class="icon-contact bg-contact mr-3">
+                      <i class="fa-brands fa-facebook "></i>
+                    </div>
+                    <div class="icon-contact bg-contact mr-3">
+                      <i class="fa-brands fa-twitter"></i>
+                    </div>
+                    <div class="icon-contact bg-contact mr-3">
+                      <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="icon-contact bg-contact mr-3">
+                      <i class="fa-solid fa-play"></i>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

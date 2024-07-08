@@ -1,0 +1,56 @@
+body{
+    background-color: rgb(252, 251, 251);
+}
+.class-input-contact input{
+    height: 60px;
+    border-radius: 0%;
+    box-shadow: none;
+}
+.class-input-contact input:focus{
+    outline-width: 0;
+    outline: 1px dotted gray ;
+}
+.btn-submit{
+    width: 150px;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+    background-color: #74a84a;
+    border-radius: 0%;
+}
+.btn-submit:hover{
+    background-color: #2c541d;
+}
+.icon-contact {
+    width: 40px; 
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid #74a84a;
+    border-radius: 50%;
+    text-align: center;
+}
+.label-contact{
+    font-family: roboto, Sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.item-contact{
+    font-size: 23px;
+    color:  #366013;
+}
+.follow-contact{
+    font-family: roboto, Sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+}
+.bg-contact{
+    width: 30px; 
+    height: 30px;
+    background-color: #74a84a;
+}
+.bg-contact i{
+    color: white;
+}

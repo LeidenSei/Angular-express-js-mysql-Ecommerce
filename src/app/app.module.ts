@@ -34,6 +34,8 @@ import { UserDetailComponent } from './Admin/user-detail/user-detail.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AdminProfileComponent } from './Admin/admin-profile/admin-profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContactComponent } from './User/contact/contact.component';
+import { ContactNavComponent } from './User/contact-nav/contact-nav.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     OrderDetailsComponent,
     UsersComponent,
     UserDetailComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    ContactComponent,
+    ContactNavComponent
   ],
   imports: [
     BrowserModule,

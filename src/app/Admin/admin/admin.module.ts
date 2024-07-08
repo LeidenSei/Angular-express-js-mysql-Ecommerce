@@ -6,10 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EditProductComponent } from '../product/edit-product/edit-product.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ContactComponent } from '../contact/contact.component';
 @NgModule({
   declarations: [
-    EditProductComponent
+    EditProductComponent,
+    ContactComponent
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ReactiveFormsModule,
     FormsModule,
     CKEditorModule,
+    NgxPaginationModule
   ]
 })
 export class AdminModule { }

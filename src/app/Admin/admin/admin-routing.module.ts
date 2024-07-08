@@ -10,6 +10,7 @@ import { OrdersComponent } from '../orders/orders.component';
 import { OrderDetailsComponent } from '../order-details/order-details.component';
 import { UsersComponent } from '../users/users.component';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { ContactComponent } from '../contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, children: [
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'product', component:ProductComponent },
     { path: 'category', component: CategoryComponent },
     { path: 'orders', component: OrdersComponent },
+    { path: 'list-message', component: ContactComponent },
     { path: 'users', component: UsersComponent },
     { path: 'user-detail/:id', component: UserDetailComponent },
     { path: 'add-product', component: AddProductComponent },

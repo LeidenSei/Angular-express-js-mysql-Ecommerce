@@ -63,11 +63,10 @@
               <a class="nav-link active text-color" id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0" role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">Description</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link text-color" id="simple-tab-1" data-bs-toggle="tab" href="#simple-tabpanel-1" role="tab" aria-controls="simple-tabpanel-1" aria-selected="false">Review(0)</a>
+              <a class="nav-link text-color" id="simple-tab-1" data-bs-toggle="tab" href="#simple-tabpanel-1" role="tab" aria-controls="simple-tabpanel-1" aria-selected="false">Review({{totalRatings}})</a>
             </li>
           </ul>
           <div class="tab-content pt-3" id="tab-content">
-<!-- Trong template của component Angular -->
     <div class="tab-pane active text-color" id="simple-tabpanel-0" role="tabpanel" aria-labelledby="simple-tab-0">
         <div [innerHTML]="product?.description"></div>
     </div>
@@ -143,7 +142,7 @@
                                             <td class="progress-bar-container">
                                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                                     <div class="fit-progressbar-background">
-                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.fiveStar) }"></span>
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentageWidthRating(ratingCounts.fiveStar) }"></span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -158,7 +157,7 @@
                                             <td class="progress-bar-container">
                                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                                     <div class="fit-progressbar-background">
-                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.fourStar) }"></span>
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentageWidthRating(ratingCounts.fourStar) }"></span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -173,7 +172,7 @@
                                             <td class="progress-bar-container">
                                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                                     <div class="fit-progressbar-background">
-                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.threeStar) }"></span>
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentageWidthRating(ratingCounts.threeStar) }"></span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -188,7 +187,7 @@
                                             <td class="progress-bar-container">
                                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                                     <div class="fit-progressbar-background">
-                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.twoStar) }"></span>
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentageWidthRating(ratingCounts.twoStar) }"></span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -203,7 +202,7 @@
                                             <td class="progress-bar-container">
                                                 <div class="fit-progressbar fit-progressbar-bar star-progress-bar">
                                                     <div class="fit-progressbar-background">
-                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentage(ratingCounts.oneStar) }"></span>
+                                                        <span class="progress-fill" [ngStyle]="{ 'width.%': getPercentageWidthRating(ratingCounts.oneStar) }"></span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -216,7 +215,7 @@
                     </div>
                 
                     <div class="review-list">
-                        <ul *ngFor="let item of ratings | paginate: { itemsPerPage: 5, currentPage: p }">
+                        <ul *ngFor="let item of ratings | paginate: { itemsPerPage: 5, currentPage: page }">
                             <li>
                                 <div class="d-flex">
                                     <div class="left">
@@ -252,7 +251,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        <pagination-controls (pageChange)="page = $event"></pagination-controls>
                     </div>
                 </div>
             </div>

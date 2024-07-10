@@ -11,21 +11,18 @@ import { Component, OnInit } from '@angular/core';
 export class OrderDetailComponent implements OnInit {
 
   listOrderDetail:any;
-  id:any;
+  orderId:any;
   constructor(private CommonService:CommonService, private route:ActivatedRoute, private orderService:OrderService){}
   ngOnInit(): void {
-    this.getData()
+    this.getOrderDetailById();
   }
-  getData(){
+  getOrderDetailById(){
     this.route.paramMap.subscribe(async params => {
       
       if (params.has('order-id')) {
-        this.id = params.get('order-id');
-        console.log(this.id);
-        
-        this.orderService.getOrderDetailByOrderId(this.id).subscribe( (data) => {
+        this.orderId = params.get('order-id');
+        this.orderService.getOrderDetailByOrderId(this.orderId).subscribe( (data) => {
           this.listOrderDetail = data;
-          console.log(data);
         })
         
       }

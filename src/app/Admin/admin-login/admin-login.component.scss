@@ -1,0 +1,14 @@
+.password-toggle{
+    position: absolute;
+    top: 70%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: rgb(45, 79, 64);
+    cursor: pointer;
+}
+.password-field{
+    position: relative;
+}
+.red_warning{
+    color: red;
+}

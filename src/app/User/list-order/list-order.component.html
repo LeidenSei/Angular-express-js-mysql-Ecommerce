@@ -1,3 +1,4 @@
+<p class="h3">List Orders</p>
 <table class="table">
     <thead>
       <tr>
@@ -15,7 +16,7 @@
       <tr *ngFor="let item of listOrder">
         <th scope="row">1</th>
         <td>{{item.id}}</td>
-        <td>{{item.order_date}}</td>
+        <td>{{item.updated_at}}</td>
         <td>{{item.shipping_date}}</td>
         <td>{{ item?.total_money | number:'1.0-0' }} VND</td>
         <td>{{item.payment_method}}</td>
@@ -26,13 +27,13 @@
           <div class="d-flex align-items-center">
             <button class="btn btn-info me-2" [routerLink]="['/profile/order-detail', item.id]" routerLinkActive="router-link-active">Detail</button>
             <div *ngIf="item.status != 'cancelled'">
-              <button class="btn btn-warning me-2" (click)="setStatusCancelled(item.id)">Delete</button>
+              <button class="btn btn-warning me-2" (click)="setStatusOrder(item.id,'cancelled')">Cancel</button>
             </div>
             <div *ngIf="item.status == 'cancelled'">
-              <button class="btn btn-success me-2" (click)="setStatusPending(item.id)">Restore</button>
+              <button class="btn btn-success me-2" (click)="setStatusOrder(item.id,'pending')">Restore</button>
             </div>
             <div *ngIf="item.status == 'cancelled'">
-              <button class="btn btn-danger me-2" (click)="deleteOrder(item.id)">Delete</button>
+              <button class="btn btn-danger me-2" (click)="setStatusOrder(item.id,'deleted')">Delete</button>
             </div>
           </div>          
         </td>

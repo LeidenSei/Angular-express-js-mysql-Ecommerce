@@ -1,7 +1,7 @@
 import { CommonService } from 'src/app/services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductServiceService } from 'src/app/services/product-service.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -9,19 +9,19 @@ import { ProductServiceService } from 'src/app/services/product-service.service'
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  p: number = 1;
+  page: number = 1;
   itemsPerPage: number = 8;
   listProduct: any;
   totalProduct: any;
-  initialListProduct: any; // Biến để lưu trữ danh sách ban đầu
+  initialListProduct: any;
 
   constructor(private router: Router,
-      private productService: ProductServiceService,
+      private productService: ProductService,
       private commonService: CommonService
   ) { }
 
   ngOnInit(): void {
-    this.getAll();
+    this.getAllProducts();
   }
 
   addProduct() {
@@ -32,19 +32,19 @@ export class ProductComponent implements OnInit {
     this.router.navigate(["admin/edit-product/" + id]);
   }
 
-  getAll() {
-    this.productService.getAll().subscribe((data) => {
+  getAllProducts() {
+    this.productService.getAllProduct().subscribe((data) => {
       this.listProduct = data;
-      this.initialListProduct = [...data]; // Sao chép danh sách ban đầu
-      this.sortProducts(); // Sắp xếp danh sách ban đầu
+      this.initialListProduct = [...data]; 
+      this.sortProducts();
       this.totalProduct = data.length;
     });
   }
 
   deleteProduct(id: any) {
-    this.productService.delete(id).subscribe((data) => {
+    this.productService.deleteProduct(id).subscribe((data) => {
       this.commonService.showAlerAside("Delete successfully", "success")
-      this.getAll();
+      this.getAllProducts();
     },
     error => {
       this.commonService.showAlerAside("Delete product failed", "error")

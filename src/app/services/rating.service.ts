@@ -5,7 +5,7 @@ const url = 'http://localhost:3000/api/rating';
 @Injectable({
   providedIn: 'root'
 })
-export class RatingServiceService {
+export class RatingService{
 
   constructor(private HttpClient:HttpClient) { }
   postRating(item:any):Observable<any>{

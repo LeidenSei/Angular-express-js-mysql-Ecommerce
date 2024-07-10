@@ -71,13 +71,14 @@
                             
                         </div>
                         <label for="" class="form-label label-icon">Status<i class="fa-regular fa-user"></i>: </label>
-                        <ng-container *ngIf="editOrder.status == 'cancelled'; else elseTemplate">
+                        <ng-container *ngIf="editOrder.status == 'cancelled' || editOrder.status == 'deleted'; else elseTemplate">
+
                             <div class="mb-3">
                                 <input type="text"  disabled [(ngModel)]="editOrder.status" name="status" class="form-control text-danger">
                             </div>
                         </ng-container>
-                        <ng-template #elseTemplate>
-                            <select class="form-select" [(ngModel)]="editOrder.status" name="status" aria-label="Default select example">
+                        <ng-template #elseTemplate>         
+                            <select class="form-select" [(ngModel)]="editOrder.status"  name="status" aria-label="Default select example">
                                 <option value="pending">pending</option>
                                 <option value="shipped">shipped</option>
                                 <option value="processing">processing</option>

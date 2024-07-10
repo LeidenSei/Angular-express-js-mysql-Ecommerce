@@ -11,7 +11,7 @@ export class OrdersComponent implements OnInit {
 
   listOrder: any;
   originalListOrder: any; 
-  p: number = 1;
+  page: number = 1;
   itemsPerPage: number = 8;
   selectedStatus: string | undefined;
 
@@ -38,16 +38,5 @@ export class OrdersComponent implements OnInit {
         this.listOrder = this.originalListOrder;
       }
     }
-  }
-  deleteOrder(id: any) {
-    this.orderService.deleteOrder(id).subscribe(
-        response => {
-            this.getAllOrders();
-            this.commonService.showAlerAside("Delete order successfully", "success")
-        },
-        error => {
-            console.error('Error deleting order:', error);
-        }
-    );
-}  
+  }  
 }

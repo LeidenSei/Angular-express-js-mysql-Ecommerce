@@ -1,16 +1,17 @@
 import { AuthService } from './auth.service';
-import { RatingServiceService } from './rating-service.service';
+import { RatingService } from './rating.service';
 import { OrderService } from './order.service';
 import { ShopService } from './shop.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductServiceService } from './product-service.service';
+import { ProductService } from './product.service';
 import { CategoryService } from './category.service';
 import { Observable } from 'rxjs';
 import { CartService } from './cart.service';
 import { UserService } from './user.service';
 import { tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -22,15 +23,16 @@ export class CommonService {
   user: any;
   listOrder:any;
   data:any;
+  control: any;
   constructor(
     private router: Router,
-    private productService: ProductServiceService,
+    private productService: ProductService,
     private categoryService: CategoryService,
     private cartService: CartService,
     private shopService: ShopService,
     private userService: UserService,
     private orderService: OrderService,
-    private ratingServiceService:RatingServiceService,
+    private ratingServiceService:RatingService,
     private authService:AuthService
   ) {}
 
@@ -40,6 +42,7 @@ export class CommonService {
   getProductBySlug(slug: string): Observable<any> {
     return this.productService.getProductBySlug(slug);
   }
+  //cart service
   addToCart(product: any, quantity: any) {
     this.cartService.addToCart(product, quantity);
   }
@@ -65,6 +68,7 @@ export class CommonService {
   removeAllCartItem(){
     localStorage.removeItem("cartItems");
   }
+  //
   findCategoryIdByName(categoryName: string, listCate: any) {
     const category = listCate.find(
       (cate: { name: string }) => cate.name === categoryName
@@ -184,5 +188,14 @@ export class CommonService {
   //check duplicate
 checkDuplicate(name: any, list:any): boolean {
   return list.some((item: any) => item.name == name);
+}
+
+//check form control
+markFormGroupTouched(formGroup: FormGroup) {
+  Object.keys(formGroup.controls).forEach(key => {
+    this.control = formGroup.get(key);
+    this.control.markAsTouched();
+    this.control.markAsDirty();
+  });
 }
 }

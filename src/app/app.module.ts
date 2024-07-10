@@ -36,6 +36,7 @@ import { AdminProfileComponent } from './Admin/admin-profile/admin-profile.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactComponent } from './User/contact/contact.component';
 import { ContactNavComponent } from './User/contact-nav/contact-nav.component';
+import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ import { ContactNavComponent } from './User/contact-nav/contact-nav.component';
     UserDetailComponent,
     AdminProfileComponent,
     ContactComponent,
-    ContactNavComponent
+    ContactNavComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

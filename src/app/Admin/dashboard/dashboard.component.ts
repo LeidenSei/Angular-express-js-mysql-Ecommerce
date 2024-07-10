@@ -9,14 +9,12 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit{
-  
-  user:any;
-
+  admin:any;
   constructor (private commonService:CommonService, private userService:UserService, private router:Router){}
 
   ngOnInit(): void {
       this.commonService.getUserIdInToken().subscribe((data) => {
-        this.user = data;
+        this.admin = data;
       })
   }
   logout(){

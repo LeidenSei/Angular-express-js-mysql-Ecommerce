@@ -1,3 +1,4 @@
+import { RatingService } from '../../services/rating.service';
 import { CommonService } from './../../services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShopService } from './../../services/shop.service';
@@ -13,15 +14,14 @@ export class ShopComponent implements OnInit {
 
   listProduct: any;
   listCate: any;
-  p: number = 1;
+  page: number = 1;
   itemsPerPage: number = 6;
   categoryName: any = '';
   categoryId: any;
-  title: any;
-  productName: any;
-  itemcart: any;
+  itemCart: any;
   recentProducts: any;
-  OriginalProduct: any;
+  originalProduct: any;
+  selectedDropdown: any = 'lastest';
 
   constructor(
     private shopService: ShopService, 
@@ -31,13 +31,11 @@ export class ShopComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadInitialData();
+    this.loadInitialDataShop();
   }
 
-  async loadInitialData() {
+  async loadInitialDataShop() {
     await this.getAllCategory();
-    console.log(this.value, this.highValue);
-    
     this.route.paramMap.subscribe(async params => {
       if (params.has('category-name')) {
         this.categoryName = params.get('category-name');
@@ -45,61 +43,57 @@ export class ShopComponent implements OnInit {
       } else {
         await this.getAllProduct();
       }
-      this.OriginalProduct = this.listProduct;
+      this.originalProduct = this.listProduct;
+      this.onSortChange();
+      this.filterByPriceRange();
+      this.recentProducts = this.commonService.getRecentProduct();
     });
-    this.filterByPriceRange();
-    this.recentProducts = this.commonService.getRecentProduct();
   }
-
 
   async getAllProduct() {
     try {
-      const data = await this.shopService.getAllProduct().toPromise();
+      const data = await this.shopService.shopGetAllProduct().toPromise();
       this.listProduct = data;
-      this.OriginalProduct = data;
+      this.originalProduct = data;
       this.categoryName = null;
     } catch (error) {
-      console.error('Error fetching products', error);
+      console.error(error);
     }
   }
-  
-  resetPage() {
-    this.value = 100000;
-    this.highValue = 5000000;
-    this.categoryName = '';
-  
-    this.router.navigate(['/shop']).then(() => {
-      window.location.reload();
-    });
-  }
+
   async getAllCategory() {
     try {
-      const data = await this.shopService.getAllCategoryCount().toPromise();
+      const data = await this.shopService.ShopgetAllCategoryWithProduct().toPromise();
       this.listCate = data;
     } catch (error) {
       console.error('Error fetching categories', error);
     }
   }
 
-  async getProductByCategoryName(name: any) {
+  async getProductByCategoryName(categoryName: any) {
     if (!this.listCate) {
       await this.getAllCategory();
     }
-    this.categoryId = this.commonService.findCategoryIdByName(name, this.listCate);
+    this.categoryId = this.commonService.findCategoryIdByName(categoryName, this.listCate);
     if (this.categoryId) {
       try {
-        this.p = 1;
-        const data = await this.shopService.getAllProduct().toPromise();
+        this.page = 1;
+        const data = await this.shopService.shopGetAllProduct().toPromise();
         this.listProduct = data.filter((item: { category_id: any; }) => item.category_id === this.categoryId);
-        this.OriginalProduct = this.listProduct;
+        this.originalProduct = this.listProduct;
+        this.onSortChange();
       } catch (error) {
         console.error('Error fetching products', error);
       }
     }
   }
 
-  onSortChange(event: any) {
-    const selectedValue = (event.target as HTMLSelectElement).value;
+  onSortChange(event?: any) {
+    if (event) {
+      this.selectedDropdown = (event.target as HTMLSelectElement).value;
+    }
+    const selectedValue = this.selectedDropdown;
+     
     if (selectedValue === "lastest") {
       this.listProduct.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
     }
@@ -109,14 +103,13 @@ export class ShopComponent implements OnInit {
     if (selectedValue === "highToLow") {
       this.listProduct.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price);
     }
+    if (selectedValue === "Rating") {
+      this.listProduct.sort((a: { rating_avg: number; }, b: { rating_avg: number; }) => b.rating_avg - a.rating_avg);
+    }
   }
 
-  getProductByProductName(name: any) {
-    this.listProduct = this.shopService.getProductByName(name);
-  }
-
-  addToCart(slug: any) {
-    this.commonService.getProductBySlug(slug).subscribe((data) => {
+  addToCart(productSlug: any) {
+    this.commonService.getProductBySlug(productSlug).subscribe((data) => {
       this.commonService.addToCart(data, 1);
       this.commonService.showAlerAside("Add cart successfully!", "success");
     });
@@ -126,25 +119,29 @@ export class ShopComponent implements OnInit {
     let inputValue = nameInput.value.toLowerCase();
    
     if (inputValue) {
-      this.listProduct = this.OriginalProduct.filter((product: { name: string }) => {
+      this.listProduct = this.originalProduct.filter((product: { name: string }) => {
         return product.name.toLowerCase().includes(inputValue);
       });
     } else {
-      this.listProduct = this.OriginalProduct;
+      this.listProduct = this.originalProduct;
     }
   }
 
-  value: number = 100000;
-  highValue: number = 5000000;
+  minPrice: number = 100000;
+  maxPrice: number = 5000000;
 
   options: Options = {
     floor: 0,
     ceil: 5000000
   };  
+  
   filterByPriceRange() {
-    this.listProduct = this.OriginalProduct.filter((product: any) => {
-      return product.price >= this.value && product.price <= this.highValue;
+    this.listProduct = this.originalProduct?.filter((product: any) => {
+      return product.price >= this.minPrice && product.price <= this.maxPrice;
     });
   }
-  
+
+  resetPage() {
+    this.router.navigate(['/shop']);
+  }
 }

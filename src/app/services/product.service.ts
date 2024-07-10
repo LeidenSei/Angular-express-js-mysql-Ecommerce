@@ -6,21 +6,21 @@ const url = 'http://localhost:3000/api/product';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductServiceService {
+export class ProductService {
 
   constructor(private HttpClient:HttpClient) { }
 
-  getAll(): Observable<any>{
+  getAllProduct(): Observable<any>{
     return this.HttpClient.get(url)
   }
 
-  add(product:any):Observable<any>{
+  addProduct(product:any):Observable<any>{
     return this.HttpClient.post(url, product)
   }
-  delete(id:any):Observable<any>{
+  deleteProduct(id:any):Observable<any>{
     return this.HttpClient.delete(url + '/' + id)
   }
-  edit(id:any, product:any):Observable<any>{
+  editProduct(id:any, product:any):Observable<any>{
     return this.HttpClient.put(url + '/' + id, product);
   }
   getProductById(id:any):Observable<any>{
@@ -29,8 +29,8 @@ export class ProductServiceService {
   getProductBySlug(slug:any):Observable<any>{
     return this.HttpClient.get(url + '/get_by' + '/' + slug);
   }
-  get3RecentProduct():Observable<any>{
-    return this.HttpClient.get(url + '/3_recent_product');
+  getFourNewestProduct():Observable<any>{
+    return this.HttpClient.get(url + '/4_recent_product');
   }
 
 }

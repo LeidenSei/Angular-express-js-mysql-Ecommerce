@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
-import { ProductServiceService } from 'src/app/services/product-service.service';
+import { ProductService } from 'src/app/services/product.service';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -22,9 +23,10 @@ export class EditProductComponent implements OnInit {
   slugElement: any;
 
   constructor(
-    private productService: ProductServiceService,
+    private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
+    private commonService:CommonService,
     private categoryService: CategoryService,
     private fb: FormBuilder
   ) {
@@ -46,7 +48,7 @@ export class EditProductComponent implements OnInit {
   }
 
   getListCate(): void {
-    this.categoryService.getAll().subscribe(data => {
+    this.categoryService.getAllCategory().subscribe(data => {
       this.listCate = data;
     });
   }
@@ -88,12 +90,18 @@ export class EditProductComponent implements OnInit {
     }else{
       formData.append('image', this.product.image);
     }
-    formData.append('slug', this.slugElement.value);
-    this.productService.edit(this.productId, formData).subscribe(
+    if (this.slugElement != null) {
+      formData.append('slug', this.slugElement.value);
+    }else{
+      formData.append('slug', this.product.slug);
+    }
+   
+    
+    this.productService.editProduct(this.productId, formData).subscribe(
       data => {
         if (data) {
-          alert('Edit product successfully');
-          this.router.navigate(['/admin']);
+          this.commonService.showAlerAside("Edit this product successfully", "success")
+          this.router.navigate(['/admin/product']);
         }
       },
       error => {

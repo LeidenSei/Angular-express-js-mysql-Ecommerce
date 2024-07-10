@@ -2,11 +2,11 @@
     <div class="row justify-content-center  align-items-center">
       <div class="col-lg-6">
         <h3>Add Category</h3>
-        <form [formGroup]="profileForm" (ngSubmit)="addCate()">
+        <form [formGroup]="formCategory" (ngSubmit)="addCategory()">
           <div class="form-group">
             <label class="d-flex justify-content-lg-center align-items-lg-center text-info h3">Name of the category</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="name" formControlName="name" placeholder="Insert the name of the category">
-            <div *ngIf="submitted && profileForm.get('name')?.invalid" class="text-danger">Name is required</div>
+            <div *ngIf="submitted && formCategory.get('name')?.invalid" class="text-danger">Name is required</div>
 
           </div>
           
@@ -29,8 +29,8 @@
                     <th scope="row">{{ i+1 }}</th>
                     <td>{{ item.name }}</td>
                     <td>
-                      <a class="btn btn-info" (click)="edit( item.id )">Edit</a>
-                      <a class="btn btn-danger" (click)="deleteCate( item.id )">Delete</a>
+                      <a class="btn btn-info" (click)="editCategory( item.id )">Edit</a>
+                      <a class="btn btn-danger" (click)="deleteCategory( item.id )">Delete</a>
                     </td>
                   </tr>
                 </tbody>
@@ -46,10 +46,10 @@
               <h5 class="modal-title">Modal title</h5>
           </div>
           <div class="modal-body">
-              <form [formGroup]="profileForm" (submit)="upDate()">
+              <form [formGroup]="formCategory" (submit)="updateCategory()">
                   <div class="form-group">
                     <label class="d-flex justify-content-lg-center align-items-lg-center text-info h3">Name of the category</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="name" value="{{ cate.name }}">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="name" value="{{ updatedDataCategory.name }}">
                   </div>
                   <div class="btn_admin"><button type="submit" class="btn btn-success btn-block">Submit</button></div>
                 </form>

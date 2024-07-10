@@ -1,4 +1,5 @@
 <div class="container">
+    <p class="h2">List Products</p>
         <div class="row justify-content-between align-item-center mt-5">
             <div class="col-lg-6 d-flex justify-content-center">
                 <a class="btn btn-success" (click)="addProduct()">Add Product</a>
@@ -38,7 +39,7 @@
             </thead>
             <tbody class="table-group-divider">
                 <tr
-                    class="table-primary" *ngFor="let item of listProduct | paginate: { itemsPerPage: 10, currentPage: p }, let i = index"
+                    class="table-primary" *ngFor="let item of listProduct | paginate: { itemsPerPage: 10, currentPage: page }, let i = index"
                 >
                     <td scope="row">{{i+1}}</td>
                     <td>{{item.id}}</td>
@@ -65,6 +66,6 @@
         </table>
     </div>
     <div>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </div>
 </div>

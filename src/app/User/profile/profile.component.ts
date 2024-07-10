@@ -1,5 +1,4 @@
 import { AuthService } from './../../services/auth.service';
-import { OrderService } from './../../services/order.service';
 
 import { Component, OnInit } from '@angular/core';
 import {
@@ -21,7 +20,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   userProfile: any;
   fileToUpload: any;
-  profileForm: FormGroup;
+  editPofileForm: FormGroup;
   imageUrl: any =
     'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   listOrder: any;
@@ -34,7 +33,7 @@ export class ProfileComponent implements OnInit {
     private authService:AuthService,
     private router:Router
   ) {
-    this.profileForm = this.fb.group({
+    this.editPofileForm = this.fb.group({
       id: [''],
       fullname: ['', [Validators.required, Validators.minLength(5)]],
       phone_number: [
@@ -58,11 +57,12 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['']);
     this.commonService.showAlerAside("Log out successfully!!", "success")
   }
+
   ngOnInit(): void {
-    this.getUser();
+    this.getUserData();
   }
 
-  getUser() {
+  getUserData() {
     this.commonService.getUserIdInToken().subscribe((data) => {
       this.userProfile = data;
   
@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
           this.userProfile.date_of_birth = localDate.toISOString().substring(0, 10);
         }
   
-        this.profileForm.patchValue(this.userProfile);
+        this.editPofileForm.patchValue(this.userProfile);
         if (this.userProfile.avatar) {
           this.imageUrl = this.userProfile.avatar;
         }
@@ -86,20 +86,20 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() {
     const formData = new FormData();
-    Object.keys(this.profileForm.controls).forEach((key) => {
-      formData.append(key, this.profileForm.get(key)?.value || '');
+    Object.keys(this.editPofileForm.controls).forEach((key) => {
+      formData.append(key, this.editPofileForm.get(key)?.value || '');
     });
 
     if (this.fileToUpload) {
       formData.append('avatar', this.fileToUpload, this.fileToUpload.name);
     }
     console.log(formData);
-    this.userService.edit(this.userProfile.id, formData).subscribe(
+    this.userService.editUser(this.userProfile.id, formData).subscribe(
       (data) => {
         if (data) {
           this.commonService.showAlert('Edit profile successfully', 'success');
           this.commonService.getUserById(this.userProfile.id).subscribe(() => {
-            this.getUser();
+            this.getUserData();
           });
         }
       },

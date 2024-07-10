@@ -23,7 +23,7 @@
       return this.httpClient.post(url + 'user/login', item);
     }
 
-    edit(id: any, item: any): Observable<any> {
+    editUser(id: any, item: any): Observable<any> {
       return this.httpClient.put(url + 'user/edit/' + id, item);
     }
 

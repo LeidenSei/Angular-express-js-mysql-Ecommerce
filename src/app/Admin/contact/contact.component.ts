@@ -14,7 +14,7 @@ export class ContactComponent implements OnInit {
   listMessage: any;
   p: number = 1;
   selectedMessages: Set<number> = new Set<number>();
-  aInstance:any;
+  dataDetailMessage:any;
   itemsPerPage: number = 8;
   user:any;
   avatar: any;
@@ -39,9 +39,9 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  detail(id:any, userId:any){
-    this.contactService.getMessageById(id).subscribe((data) => {
-      this.aInstance = data;
+  detailMessage(messageId:any, userId:any){
+    this.contactService.getMessageById(messageId).subscribe((data) => {
+      this.dataDetailMessage = data;
     });
     if (userId != null) {
       this.userService.getUserById(userId).subscribe(data => {
@@ -64,7 +64,7 @@ deleteSelectedMessages() {
       }
     );
   }
-  toggleSelection(id: number) {
+  toggleSelectionMessage(id: number) {
     if (this.selectedMessages.has(id)) {
       this.selectedMessages.delete(id);
     } else {

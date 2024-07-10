@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 import {
   FormBuilder,
   FormControl,
@@ -7,6 +8,7 @@ import {
 } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ProductService } from 'src/app/services/product.service';
 declare var $: any;
 
 @Component({
@@ -16,8 +18,8 @@ declare var $: any;
 })
 export class CategoryComponent implements OnInit {
   listCate: any;
-  cate: any = {};
-  profileForm = new FormGroup({
+  updatedDataCategory: any = {};
+  formCategory = new FormGroup({
     name: new FormControl(''),
   });
   submitted = false;
@@ -25,77 +27,99 @@ export class CategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private formBuilder: FormBuilder,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private productService: ProductService
   ) {}
   ngOnInit(): void {
-    this.getList();
-    this.profileForm = this.formBuilder.group({
+    this.getListCategory();
+    this.formCategory = this.formBuilder.group({
       name: ['', Validators.required],
     });
   }
-  getList() {
-    this.categoryService.getAll().subscribe((data) => {
+  getListCategory() {
+    this.categoryService.getAllCategory().subscribe((data) => {
       this.listCate = data;
     });
   }
-  addCate(): void {
+  addCategory(): void {
     this.submitted = true;
 
-    if (this.profileForm.invalid) {
+    if (this.formCategory.invalid) {
       return;
     }
-    const newName: string | null = this.profileForm.value.name ?? null;
+    const newName: string | null = this.formCategory.value.name ?? null;
     if (!newName) {
       return;
     }
-    if (this.checkDuplicate(newName)) {
+    if (this.checkDuplicateCateName(newName)) {
       this.commonService.showAlerAside('Name have already had', 'warning');
       return;
     }
-    this.categoryService.add(this.profileForm.value).subscribe((data) => {
+    this.categoryService.addCategory(this.formCategory.value).subscribe((data) => {
       console.log(data);
-      this.getList();
+      this.getListCategory();
     });
   }
+  deleteCategory(id: any): void {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.categoryService.deleteCategory(id).subscribe(
+          (data) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your category has been deleted.",
+              icon: "success"
+            });
+            this.getListCategory();
+          },
+          (error) => {
+            Swal.fire({
+              title: "Failed!",
+              text: "This category cannot be deleted because it has products.",
+              icon: "error"
+            });
+          }
+        );
 
-  onReset(): void {
-    this.submitted = false;
-    this.profileForm.reset();
-  }
-  deleteCate(id: any): void {
-    this.commonService.confirmAlert();
-    this.categoryService.delete(id).subscribe((data) => {
-      this.getList();
-      alert('Delete successfully');
+      }
     });
+
   }
-  upDate(): void {
-    const newName: string | null = this.profileForm.value.name ?? null;
+  updateCategory(): void {
+    const newName: string | null = this.formCategory.value.name ?? null;
     if (!newName) {
       return;
     }
-    if (this.checkDuplicate(newName)) {
-      this.commonService.showAlerAside('Name have already had', 'warning');
+    if (this.checkDuplicateCateName(newName)) {
+      this.commonService.showAlerAside('This category name have already had', 'warning');
       return;
     }
     this.categoryService
-      .update(this.cate.id, this.profileForm.value)
+      .updateCategory(this.updatedDataCategory.id, this.formCategory.value)
       .subscribe((data) => {
         $('#modelId').modal('hide');
-        this.getList();
+        this.getListCategory();
         this.commonService.showAlerAside(
           'Edit category successfully!!',
           'success'
         );
       });
   }
-  edit(id: any): void {
+  editCategory(categoryId: any): void {
     $('#modelId').modal('show');
-    this.categoryService.find(id).subscribe((data) => {
-      this.cate = data;
+    this.categoryService.findCategory(categoryId).subscribe((data) => {
+      this.updatedDataCategory = data;
     });
   }
-  checkDuplicate(name: string): boolean {
-    return this.listCate.some((item: any) => item.name === name);
+  checkDuplicateCateName(categoryName: string): boolean {
+    return this.listCate.some((item: any) => item.name === categoryName);
   }
 }

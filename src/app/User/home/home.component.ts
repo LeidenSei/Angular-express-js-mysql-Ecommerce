@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ProductServiceService } from 'src/app/services/product-service.service';
+import { ProductService } from 'src/app/services/product.service';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -11,12 +11,12 @@ import { CommonService } from 'src/app/services/common.service';
 export class HomeComponent implements OnInit{
   listItem:any;
   totalItemCart:any;
-  constructor(private router: Router, private productService: ProductServiceService, private commonService:CommonService){}
+  constructor(private router: Router, private productService: ProductService, private commonService:CommonService){}
   ngOnInit(): void {
-      this.get3RecentProduct();
+      this.getFourNewest();
   }
-  get3RecentProduct(){
-    this.productService.get3RecentProduct().subscribe((data) =>{
+  getFourNewest(){
+    this.productService.getFourNewestProduct().subscribe((data) =>{
       this.listItem = data;
     })
   }
@@ -25,5 +25,11 @@ export class HomeComponent implements OnInit{
   }
   getTotalItemCarts(){
     this.totalItemCart = this.commonService.getAllCartItem();
+  }
+  addToCart(productSlug: any) {
+    this.commonService.getProductBySlug(productSlug).subscribe((data) => {
+      this.commonService.addToCart(data, 1);
+      this.commonService.showAlerAside("Add cart successfully!", "success");
+    });
   }
 }

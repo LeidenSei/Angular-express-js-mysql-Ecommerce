@@ -1,129 +1,4 @@
-<!-- <div class="container">
-  <form [formGroup]="formProduct" (ngSubmit)="updateProduct()">
-    <div class="row mb-4">
-      <div class="col">
-        <div data-mdb-input-init class="form-outline">
-          <input
-            type="text"
-            id="title"
-            formControlName="name"
-            (keyup)="ChangeToSlug()"
-            class="form-control"
-          />
-          <label class="form-label" for="form6Example1">Product Name</label>
-        </div>
-      </div>
-      <div class="col">
-        <div data-mdb-input-init class="form-outline">
-          <input
-            type="text"
-            id="slug"
-            formControlName="slug"
-            class="form-control"
-          />
-          <label class="form-label" for="form6Example1">Slug</label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col">
-        <select
-          class="form-select"
-          formControlName="category_id"
-          aria-label="Default select example"
-        >
-          <option selected>Select Category</option>
-          <option *ngFor="let item of listCate" [value]="item.id">
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
-      <div class="col">
-        <div data-mdb-input-init class="form-outline">
-          <input
-            type="text"
-            id="form6Example1"
-            formControlName="product_quantity"
-            class="form-control"
-          />
-          <label class="form-label" for="form6Example1">Quantity</label>
-        </div>
-        <div data-mdb-input-init class="form-outline">
-          <input
-            type="text"
-            id="form6Example1"
-            formControlName="price"
-            class="form-control"
-          />
-          <label class="form-label" for="form6Example1">Price</label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col">
-        <div data-mdb-input-init class="form-outline">
-          <input
-            #Image
-            type="file"
-            class="form-control"
-            enctype="multipart/form-data"
-            (change)="handleFileInput($event)"
-          />
-          <label class="form-label" for="form6Example1">Image</label>
-        </div>
-      </div>
-      <div class="col">
-        <div data-mdb-input-init class="form-outline">
-          <ng-container *ngIf="imageUrl; else elseTemplate1">
-            <img width="100%" [src]="imageUrl" class="image" />
-          </ng-container>
-          <ng-template #elseTemplate1>
-            <img width="100%" [src]="product?.image" class="image" />
-          </ng-template>
-          <label class="form-label" for="form6Example1">Preview image</label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col">
-        <div data-mdb-input-init class="form-outline mb-4">
-          <ckeditor
-            formControlName="short_detail"
-            [editor]="Editor"
-            (ready)="onReady($event)"
-          ></ckeditor>
-        </div>
-      </div>
-      <div class="col">
-        <div data-mdb-input-init class="form-outline mb-4">
-          <ckeditor
-            formControlName="description"
-            [editor]="Editor"
-            (ready)="onReady($event)"
-          ></ckeditor>
-        </div>
-      </div>
-    </div>
 
-    <div class="form-check d-flex mb-4">
-      <input
-        class="form-check-input me-2"
-        type="checkbox"
-        formControlName="status"
-        id="form6Example8"
-      />
-      <label class="form-check-label" for="form6Example8"> Status </label>
-    </div>
-
-    <button
-      data-mdb-ripple-init
-      type="submit"
-      class="btn btn-primary btn-block mb-4"
-    >
-      Update
-    </button>
-  </form>
-</div> -->
 <div class="container">
   <form [formGroup]="formProduct" (ngSubmit)="updateProduct()">
       <div class="row mb-4 justify-content-center ">
@@ -171,14 +46,6 @@
               <ckeditor formControlName="description" [editor]="Editor" data="<p>Hello World</p>" (ready)="onReady($event)"></ckeditor>
             </div>
           </div>
-          <div class="form-check d-flex mb-4">
-            <label class="form-check-label" for="form6Example8"> Status </label>
-            <input
-              class="form-check-input me-2"
-              type="checkbox"
-              formControlName="status"
-            />
-          </div>
         </div>
        
         <div class="col-lg-5">
@@ -195,6 +62,14 @@
                 <img  *ngIf="imageUrl" [src]="imageUrl" class="image">
               </div>
             </div>
+          </div>
+          <div class="form-check d-flex mb-4">
+            <label class="form-check-label" for="form6Example8"> Status </label>
+            <input
+              class="form-check-input me-2"
+              type="checkbox"
+              formControlName="status"
+            />
           </div>
           <div class="col-lg-12">
             <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Edit product</button>

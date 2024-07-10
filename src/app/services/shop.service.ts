@@ -11,13 +11,13 @@ export class ShopService {
 
   constructor(private HttpClient:HttpClient) { }
 
-  getAllProduct():Observable<any>{
+  shopGetAllProduct():Observable<any>{
     return this.HttpClient.get(url);
   }
-  getAllCategoryCount(){
+  ShopgetAllCategoryWithProduct(){
     return this.HttpClient.get(url + '/category-count');
   }
-  getProductByName(name:any){
+  ShoppingProductByName(name:any){
     return this.HttpClient.get(url + '/product-name/' +name);
   }
 }

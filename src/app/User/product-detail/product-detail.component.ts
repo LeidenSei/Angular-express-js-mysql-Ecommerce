@@ -1,10 +1,10 @@
-import { RatingServiceService } from './../../services/rating-service.service';
+import { RatingService } from '../../services/rating.service';
 import { CommonService } from 'src/app/services/common.service';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { ProductServiceService } from 'src/app/services/product-service.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,7 +20,7 @@ export class ProductDetailComponent implements OnInit {
   user: any;
   relatedProduct:any;
   ratings: any;
-  p: number = 1;
+  page: number = 1;
   recentProducts:any
   itemsPerPage: number = 8;
   totalRatings: number | undefined;
@@ -34,17 +34,17 @@ export class ProductDetailComponent implements OnInit {
   
 
   constructor(
-    private ratingService: RatingServiceService,
+    private ratingService: RatingService,
     private commonService: CommonService,
     private route: ActivatedRoute,
-    private productService:ProductServiceService
+    private productService:ProductService
   ) {}
 
   ngOnInit(): void {
-    this.getDataLoad();
+    this.loadInitialDataProductDetail();
   
   }
-  getDataLoad(){
+  loadInitialDataProductDetail(){
     this.route.paramMap.subscribe(params => {
       this.slug = params.get('slug')!;
       if (this.slug) {
@@ -94,7 +94,7 @@ export class ProductDetailComponent implements OnInit {
     this.activeAlert = false;
   }
 
-  ratingControl = new FormControl(0);
+  ratingControl = new FormControl(1);
 
   getRating(value: number) {
     this.ratingForm.rating_star = value;
@@ -111,7 +111,7 @@ export class ProductDetailComponent implements OnInit {
   };
 
   getRelatedProduct(id: any, idProduct: any) {
-    this.productService.getAll().subscribe(data => {
+    this.productService.getAllProduct().subscribe(data => {
       this.relatedProduct = data
         .filter((item: { category_id: any; id: any; }) => item.category_id === id && item.id !== idProduct)
         .slice(0, 3);
@@ -133,7 +133,6 @@ export class ProductDetailComponent implements OnInit {
         };
       }
     });
-
   }
 
   getRatingsByStars() {
@@ -146,18 +145,18 @@ export class ProductDetailComponent implements OnInit {
   getTotalRatings() {
     return Object.values(this.ratingCounts).reduce((a, b) => a + b, 0);
   }
-  getPercentage(ratingCount: number): number {
-    const totalRatings = this.getTotalRatings();
-    if (totalRatings === 0) {
+  getPercentageWidthRating(ratingCount: number): number {
+    this.totalRatings = this.getTotalRatings();
+    if (this.totalRatings === 0) {
       return 0;
     }
-    return (ratingCount / totalRatings) * 100;
+    return (ratingCount / this.totalRatings) * 100;
   }  
   onSubmit() {
     this.ratingService.postRating(this.ratingForm).subscribe(
       response => {
         this.commonService.showAlert("Added your comment", "success")
-        this.getDataLoad()
+        this.loadInitialDataProductDetail()
       },
       error => {
         console.error('Error adding comment:', error);

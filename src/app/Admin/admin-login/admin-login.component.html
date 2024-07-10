@@ -1,0 +1,41 @@
+<section class="vh-100" style="background-color: #244977;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+              <h3 class="mb-5">Sign in admin</h3>
+              <form [formGroup]="formLogin" (submit)="onSubmit()">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="text" id="email" formControlName="email" class="form-control">
+                  <div class="red_warning" *ngIf="formLogin.controls.email.dirty && formLogin.controls.email.errors">
+                    <small *ngIf="formLogin.controls.email.errors['required']">Email cannot be blank</small>
+                    <small *ngIf="formLogin.controls.email.errors['email']">Invalid email (myname@gmail.com)</small>
+                  </div>
+                  <div class="divider-nospace"></div>
+                </div>
+                <div class="form-group password-field">
+                  <label for="password">Password</label>
+                  <div class="input-group">
+                    <input [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Min 3 characters" formControlName="password" class="form-control" id="password">
+                    <div class="input-group-append">
+                      <span class="input-group-text" (click)="togglePasswordVisibility()">
+                        <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="red_warning" *ngIf="formLogin.controls.password.dirty && formLogin.controls.password.errors">
+                    <small *ngIf="formLogin.controls.password.errors['required']">Password cannot be blank</small>
+                  </div>
+                  <div class="divider-nospace"></div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

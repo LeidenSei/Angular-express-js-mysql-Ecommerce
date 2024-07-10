@@ -64,11 +64,45 @@
   margin-bottom: 20px;
 }
 
+.product-image{
+  position: relative;
+}
+
+.stars-outer {
+  position: relative;
+  position: absolute;
+  bottom: 10px; 
+  left: 10px; 
+  display: inline-block;
+  font-family: FontAwesome;
+  font-size: 24px;
+  color: #ccc;
+
+  &::before {
+    content: '\f005 \f005 \f005 \f005 \f005'; 
+  }
+
+  .stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    color: #ffc107; 
+
+    &::before {
+      content: '\f005 \f005 \f005 \f005 \f005'; 
+    }
+  }
+}
+
 .product {
   margin: 10px 0;
   padding: 10px;
   border: 1px solid #ccc;
 }
+
 .btn-add-cart:hover{
   background-color: rgb(101, 182, 101);
 }
@@ -143,7 +177,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
 }

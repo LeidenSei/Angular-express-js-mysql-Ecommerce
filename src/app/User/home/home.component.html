@@ -1,14 +1,21 @@
 <app-navi-bar/>
 <div class="container mt-5">
-    <h3>Recent Product</h3>
+    <h3>Newest Product</h3>
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-3" *ngFor="let item of listItem">
             <div class="card">
                 <a (click)="detailProduct(item.slug)"><img class="card-img-top" src="{{item.image}}" alt="Title" /></a>
-                <div class="card-body">
-                    <h4 class="">{{item.name}}</h4>
-                    <p>{{item.category}}</p>
-                    <p>{{ item.price | number:'1.0-0' }} VND</p>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <div>
+                        <h4 class="card-title">{{ item.name }}</h4>
+                        <p class="card-text">{{ item.price | number:'1.0-0' }} VND</p>
+                        <p class=""><small>{{ item.category }}</small></p>
+                    </div>
+                    <div>
+                        <button class="btn-add-cart" (click)="addToCart(item.slug)">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div> 
         </div>

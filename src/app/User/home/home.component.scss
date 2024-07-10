@@ -7,7 +7,24 @@
     align-items: center;
     height: 500px;
 }
-
+.btn-add-cart:hover{
+    background-color: rgb(101, 182, 101);
+  }
+  .btn-add-cart {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background-color: rgb(129, 114, 114);
+  }
+  
+  .btn-add-cart i {
+    font-size: 18px;
+  }
 .centered-element {
     padding: 20px;
     border-radius: 10px;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
+import { User } from 'src/app/models/user';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,8 +10,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./master-view-admin.component.scss']
 })
 export class MasterViewAdminComponent implements OnInit{
-  listOrder:any;
-  listUser:any;
+  listOrder:Order[] = [];
+  listUser:User [] = [];
   totalSale:any;
   constructor(private userService:UserService, private orderServce:OrderService){
     

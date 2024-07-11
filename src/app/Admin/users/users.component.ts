@@ -4,6 +4,7 @@ import { UserService } from './../../services/user.service';
 import { RoleService } from 'src/app/services/role.service';
 import { Role } from 'src/app/models/role';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-users',
@@ -13,9 +14,22 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UsersComponent implements OnInit {
   page: number = 1;
   itemsPerPage: number = 8;
-  listUsers: any;
-  originalListUsers: any;
-  user: any;
+  listUsers: User [] = [];
+  originalListUsers: User [] = [];
+  user: User = {
+    id: undefined,
+    fullname: undefined,
+    phone_number: undefined,
+    email: undefined,
+    avatar: undefined,
+    address: undefined,
+    password: undefined,
+    created_at: undefined,
+    updated_at: undefined,
+    is_active: undefined,
+    date_of_birth: undefined,
+    role_id: undefined
+  };
   roles: any;
   logId: any;
   constructor(

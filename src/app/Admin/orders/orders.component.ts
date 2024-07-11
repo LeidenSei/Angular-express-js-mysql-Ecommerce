@@ -1,6 +1,7 @@
 import { CommonService } from 'src/app/services/common.service';
 import { OrderService } from './../../services/order.service';
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-orders',
@@ -9,8 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  listOrder: any;
-  originalListOrder: any; 
+  listOrder: Order[] = [];
+  originalListOrder: Order[] = []; 
   page: number = 1;
   itemsPerPage: number = 8;
   selectedStatus: string | undefined;

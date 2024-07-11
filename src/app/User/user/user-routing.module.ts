@@ -7,7 +7,7 @@ import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { ShopComponent } from '../shop/shop.component';
-import { OrderComponent } from '../order/order.component';
+import { OrderComponent } from '../cart/order.component';
 import { CheckoutComponent } from '../checkout/checkout.component';
 import { SuccessCheckoutComponent } from '../success-checkout/success-checkout.component';
 import { ListOrderComponent } from '../list-order/list-order.component';

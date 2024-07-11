@@ -2,6 +2,7 @@ import { OrderService } from './../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from './../../services/common.service';
 import { Component, OnInit } from '@angular/core';
+import { OrderDetail } from 'src/app/models/order-detail';
 
 @Component({
   selector: 'app-order-detail',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderDetailComponent implements OnInit {
 
-  listOrderDetail:any;
+  listOrderDetail:OrderDetail[] = [];
   orderId:any;
   constructor(private CommonService:CommonService, private route:ActivatedRoute, private orderService:OrderService){}
   ngOnInit(): void {

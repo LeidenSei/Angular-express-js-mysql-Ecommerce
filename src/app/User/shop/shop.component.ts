@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ShopService } from './../../services/shop.service';
 import { Component, OnInit } from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
+import { shopCategory } from 'src/app/models/shop-category';
 
 @Component({
   selector: 'app-shop',
@@ -13,7 +14,7 @@ import { Options } from '@angular-slider/ngx-slider';
 export class ShopComponent implements OnInit {
 
   listProduct: any;
-  listCate: any;
+  listCate:  shopCategory[] = [];
   page: number = 1;
   itemsPerPage: number = 6;
   categoryName: any = '';
@@ -64,7 +65,9 @@ export class ShopComponent implements OnInit {
   async getAllCategory() {
     try {
       const data = await this.shopService.ShopgetAllCategoryWithProduct().toPromise();
-      this.listCate = data;
+      this.listCate = data || [];
+      console.log(this.listCate);
+      
     } catch (error) {
       console.error('Error fetching categories', error);
     }

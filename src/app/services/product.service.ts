@@ -1,36 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Product } from '../models/product';
 
-const url = 'http://localhost:3000/api/product';
+const apiUrl = 'http://localhost:3000/api/product'; // Adjust URL as per your API endpoint
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private HttpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  getAllProduct(): Observable<any>{
-    return this.HttpClient.get(url)
-  }
-
-  addProduct(product:any):Observable<any>{
-    return this.HttpClient.post(url, product)
-  }
-  deleteProduct(id:any):Observable<any>{
-    return this.HttpClient.delete(url + '/' + id)
-  }
-  editProduct(id:any, product:any):Observable<any>{
-    return this.HttpClient.put(url + '/' + id, product);
-  }
-  getProductById(id:any):Observable<any>{
-    return this.HttpClient.get(url + '/' + id);
-  }
-  getProductBySlug(slug:any):Observable<any>{
-    return this.HttpClient.get(url + '/get_by' + '/' + slug);
-  }
-  getFourNewestProduct():Observable<any>{
-    return this.HttpClient.get(url + '/4_recent_product');
+  getAllProduct(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(apiUrl);
   }
 
+  addProduct(product: any): Observable<Product> {
+    return this.httpClient.post<Product>(apiUrl, product);
+  }
+
+  deleteProduct(id: string): Observable<any> {
+    return this.httpClient.delete(`${apiUrl}/${id}`);
+  }
+
+  editProduct(id: string, formData: any): Observable<Product> {
+    return this.httpClient.put<Product>(`${apiUrl}/${id}`, formData);
+  }
+
+  getProductById(id: string): Observable<Product> {
+    return this.httpClient.get<Product>(`${apiUrl}/${id}`);
+  }
+
+  getProductBySlug(slug: string): Observable<Product> {
+    return this.httpClient.get<Product>(`${apiUrl}/get_by/${slug}`);
+  }
+
+  getFourNewestProduct(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(`${apiUrl}/4_recent_product`);
+  }
 }

@@ -27,9 +27,9 @@
               <img [src]="imageUrl" alt="avatar"
                 class=" img-fluid" style="width: 150px;">
             </ng-template>
-            <h5 class="my-3">{{userProfile?.fullname}}</h5>
-            <p class="text-muted mb-1">{{userProfile?.email}}</p>
-            <p class="text-muted mb-4">{{userProfile?.address}}</p>
+            <h5 class="my-3">{{userProfile.fullname}}</h5>
+            <p class="text-muted mb-1">{{userProfile.email}}</p>
+            <p class="text-muted mb-4">{{userProfile.address}}</p>
             <div class="d-flex justify-content-center mb-2">
               <div class="file-input">
                 <input type="file" id="file" (change)="handleFileInput($event)" class="file">

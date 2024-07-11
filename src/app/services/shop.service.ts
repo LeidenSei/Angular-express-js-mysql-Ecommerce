@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { shopCategory } from '../models/shop-category';
 
 
 const url = 'http://localhost:3000/api/shop';
@@ -9,15 +10,15 @@ const url = 'http://localhost:3000/api/shop';
 })
 export class ShopService {
 
-  constructor(private HttpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient) { }
 
   shopGetAllProduct():Observable<any>{
-    return this.HttpClient.get(url);
+    return this.httpClient.get(url);
   }
-  ShopgetAllCategoryWithProduct(){
-    return this.HttpClient.get(url + '/category-count');
+  ShopgetAllCategoryWithProduct(): Observable<shopCategory[]> {
+    return this.httpClient.get<shopCategory[]>(url + '/category-count');
   }
   ShoppingProductByName(name:any){
-    return this.HttpClient.get(url + '/product-name/' +name);
+    return this.httpClient.get(url + '/product-name/' +name);
   }
 }

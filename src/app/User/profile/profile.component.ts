@@ -11,6 +11,8 @@ import {
 import { UserService } from 'src/app/services/user.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/models/order';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-profile',
@@ -18,12 +20,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  userProfile: any;
+  userProfile: User = {
+    id: undefined,
+    fullname: undefined,
+    phone_number: undefined,
+    email: undefined,
+    avatar: undefined,
+    address: undefined,
+    password: undefined,
+    created_at: undefined,
+    updated_at: undefined,
+    is_active: undefined,
+    date_of_birth: undefined,
+    role_id: undefined
+  };
   fileToUpload: any;
   editPofileForm: FormGroup;
   imageUrl: any =
     'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
-  listOrder: any;
+  listOrder: Order[] = [];
   regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
 
   constructor(
@@ -50,12 +65,6 @@ export class ProfileComponent implements OnInit {
       updated_at: [''],
       avatar: [''],
     });
-  }
-
-  logOut(){
-    this.authService.logout();
-    this.router.navigate(['']);
-    this.commonService.showAlerAside("Log out successfully!!", "success")
   }
 
   ngOnInit(): void {
@@ -137,5 +146,11 @@ export class ProfileComponent implements OnInit {
 
       return null;
     };
+  }
+  
+  logOut(){
+    this.authService.logout();
+    this.router.navigate(['']);
+    this.commonService.showAlerAside("Log out successfully!!", "success")
   }
 }

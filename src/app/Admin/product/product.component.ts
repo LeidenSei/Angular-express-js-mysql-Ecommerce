@@ -2,6 +2,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product',
@@ -11,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductComponent implements OnInit {
   page: number = 1;
   itemsPerPage: number = 8;
-  listProduct: any;
+  listProduct: Product[] = [];
   totalProduct: any;
   initialListProduct: any;
 
@@ -64,6 +65,12 @@ export class ProductComponent implements OnInit {
   }
 
   sortProducts() {
-    this.listProduct.sort((a: { id: any; }, b: { id: any; }) => b.id - a.id);
+    this.listProduct.sort((a: Product, b: Product) => {
+      if (a.id && b.id) {
+        return b.id - a.id;
+      }
+      return 0;
+    });
   }
+  
 }

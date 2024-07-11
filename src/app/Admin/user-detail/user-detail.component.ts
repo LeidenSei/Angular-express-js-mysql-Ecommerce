@@ -2,6 +2,7 @@ import { OrderService } from './../../services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-user-detail',
@@ -10,7 +11,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailComponent implements OnInit{
 
-  user: any;
+  user: User = {
+    id: undefined,
+    fullname: undefined,
+    phone_number: undefined,
+    email: undefined,
+    avatar: undefined,
+    address: undefined,
+    password: undefined,
+    created_at: undefined,
+    updated_at: undefined,
+    is_active: undefined,
+    date_of_birth: undefined,
+    role_id: undefined
+  };
   id: string | null | undefined;
   listorders: any;
   constructor(private route:ActivatedRoute, private userService:UserService, private orderService:OrderService){}

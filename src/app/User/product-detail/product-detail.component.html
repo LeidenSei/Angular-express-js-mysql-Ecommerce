@@ -32,12 +32,12 @@
                 </ol>
               </nav>
               <p class="name-category">{{product.category}}</p>
-              <p>{{product?.name}}</p>
+              <p>{{product.name}}</p>
               
-              <p>{{ product?.price | number:'1.0-0' }} VND</p>
-              <p>{{product?.product_quantity}}</p>
+              <p>{{ product.price | number:'1.0-0' }} VND</p>
+              <p>{{product.product_quantity}}</p>
                <div >
-                 <div class="edit-short-detail" [innerHTML]="product?.short_detail"></div>
+                 <div class="edit-short-detail" [innerHTML]="product.short_detail"></div>
                </div>
 
               <div class="d-flex align-items-center  ">
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <div class="border-bottom"></div>
-              <p>Category: <a class="name-category">{{product?.category}}</a></p>
+              <p>Category: <a class="name-category">{{product.category}}</a></p>
         </div>
     </div>
     <div class="other-tabs mt-3">
@@ -68,7 +68,7 @@
           </ul>
           <div class="tab-content pt-3" id="tab-content">
     <div class="tab-pane active text-color" id="simple-tabpanel-0" role="tabpanel" aria-labelledby="simple-tab-0">
-        <div [innerHTML]="product?.description"></div>
+        <div [innerHTML]="product.description"></div>
     </div>
 
             
@@ -76,7 +76,7 @@
                 <p>There are no reviews yet.</p>
                 <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
                     <div class="board-review text-color">
-                      <h5 class="text-color">Add a review “{{product?.name}}”</h5>
+                      <h5 class="text-color">Add a review “{{product.name}}”</h5>
                       <p>Your email address will not be published. Required fields are marked *</p>
                       <div class="mb-3">
                         Your rating *

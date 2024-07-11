@@ -1,44 +1,43 @@
-  import { HttpClient } from '@angular/common/http';
-  import { Injectable } from '@angular/core';
-  import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
-  const url = 'http://localhost:3000/api/';
+const url = 'http://localhost:3000/api/';
 
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class UserService {
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
 
-    constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-    registerUser(item: any): Observable<any> {
-      return this.httpClient.post(url + 'user/register', item);
-    }
-
-    getAllUser(): Observable<any> {
-      return this.httpClient.get(url + 'users');
-    }
-
-    loginUser(item: any): Observable<any> {
-      return this.httpClient.post(url + 'user/login', item);
-    }
-
-    editUser(id: any, item: any): Observable<any> {
-      return this.httpClient.put(url + 'user/edit/' + id, item);
-    }
-
-    getUserById(id: any): Observable<any> {
-      return this.httpClient.get(url + 'user/' + id);
-    }
-    deleteUserById(id: any){
-      console.log(id);
-      console.log(url + 'user/delete/' + id);
-      
-      return this.httpClient.delete(url + 'user/' + id);
-    }
-    logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-    }
-
+  registerUser(item: any): Observable<any> {
+    return this.httpClient.post<any>(url + 'user/register', item);
   }
+
+  getAllUser(): Observable<User[]> {
+    return this.httpClient.get<User[]>(url + 'users');
+  }
+
+  loginUser(item: any): Observable<any> {
+    return this.httpClient.post<any>(url + 'user/login', item);
+  }
+
+  editUser(id: any, item: any): Observable<User> {
+    return this.httpClient.put<User>(url + 'user/edit/' + id, item);
+  }
+
+  getUserById(id: any): Observable<User> {
+    return this.httpClient.get<User>(url + 'user/' + id);
+  }
+
+  deleteUserById(id: any): Observable<void> {
+    return this.httpClient.delete<void>(url + 'user/delete/' + id);
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+}

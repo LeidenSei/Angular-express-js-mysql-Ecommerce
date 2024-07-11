@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
+import { Product } from 'src/app/models/product';
+import { RatingProduct } from 'src/app/models/rating-product';
 
 @Component({
   selector: 'app-product-detail',
@@ -13,15 +15,28 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   slug: any;
-  product: any;
+
+  product: Product ={
+    id: undefined,
+    price: undefined,
+    category_id: undefined,
+    name: undefined,
+    category: undefined,
+    slug: undefined,
+    short_detail: undefined,
+    product_quantity: undefined,
+    image: undefined,
+    description: undefined,
+    status: undefined
+  };
+
   activeAlert: boolean = false;
   totalQuantity: any;
-  cartItem: any;
   user: any;
   relatedProduct:any;
-  ratings: any;
+  ratings: RatingProduct[] = [];
   page: number = 1;
-  recentProducts:any
+  recentProducts:Product [] =[];
   itemsPerPage: number = 8;
   totalRatings: number | undefined;
   ratingCounts = {

@@ -6,7 +6,7 @@ import { HeaderComponent } from './User/header/header.component';
 import { FooterComponent } from './User/footer/footer.component';
 import { ShopComponent } from './User/shop/shop.component';
 import { NaviBarComponent } from './User/navi-bar/navi-bar.component';
-import { OrderComponent } from './User/order/order.component';
+import { OrderComponent } from './User/cart/order.component';
 import { ProductDetailComponent } from './User/product-detail/product-detail.component';
 import { CheckoutComponent } from './User/checkout/checkout.component';
 import { LoginComponent } from './User/login/login.component';

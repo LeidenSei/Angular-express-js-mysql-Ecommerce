@@ -2,6 +2,8 @@ import { OrderService } from './../../services/order.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Order } from 'src/app/models/order';
+import { OrderDetail } from 'src/app/models/order-detail';
 
 @Component({
   selector: 'app-order-details',
@@ -9,8 +11,25 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./order-details.component.scss']
 })
 export class OrderDetailsComponent implements OnInit{
-    listItemOrderDetail:any;
-    order:any;
+    listItemOrderDetail:OrderDetail[] = [];
+    order: Order = {
+      id: undefined,
+      user_id: undefined,
+      fullname: undefined,
+      phone_number: undefined,
+      email: undefined,
+      address: undefined,
+      note: undefined,
+      order_date: undefined,
+      status: undefined,
+      total_money: undefined,
+      shipping_method: undefined,
+      shipping_date: undefined,
+      updated_at: undefined,
+      payment_method: undefined,
+      active: undefined,
+      avatar: undefined
+    };
     id:any;
     editOrder:any = {
       shipping_date: '',

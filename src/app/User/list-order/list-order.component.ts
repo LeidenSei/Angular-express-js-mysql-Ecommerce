@@ -1,6 +1,7 @@
 import { OrderService } from './../../services/order.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-list-order',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ListOrderComponent implements OnInit{
   user:any;
 
-  listOrder:any;
+  listOrder:Order[] = [];
 
   order:any;
 
